@@ -12,7 +12,15 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# define BASE_HEX_A "0123456789abcdef"
+# define BASE_HEX_B "0123456789ABCDEF"
+# define BASE_OCT "01234567"
+# define BASE_10 "0123456789"
+
 # include <string.h>
+# include "get_next_line.h"
+
 
 typedef struct		s_list
 {
@@ -90,5 +98,8 @@ int					ft_sqrt(int nb);
 void				ft_putstr_left(char *str, int width);
 void				ft_putstr_right(char *str, int width);
 void				ft_putendstr(char *str, char a);
+int				ft_getnbr(const char *str);
+int				ft_strisnum(const char *str);
+int				ft_select_charset(char ch, const char *charset);
 
 #endif

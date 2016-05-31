@@ -15,6 +15,8 @@ int	ft_pow(int nbr, int pow)
 	int ret;
 
 	ret = nbr;
+	if (!pow)
+		return (1);
 	while (pow != 1)
 	{
 		ret *= nbr;

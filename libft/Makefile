@@ -23,23 +23,28 @@ ft_strstr.c ft_strsub.c ft_strtrim.c \
 ft_tolower.c ft_toupper.c ft_sqrt.c \
 ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 ft_lstadd.c ft_lstiter.c ft_lstmap.c \
-ft_putstr_right.c ft_putstr_left.c ft_putendchar.c
+ft_putstr_right.c ft_putstr_left.c ft_putendchar.c \
+ft_getnbr.c ft_strisnum.c get_next_line.c \
+ft_select_charset.c
 SRC_DIR = ./src
 SRC_C = $(patsubst %, $(SRC_DIR)/%, $(SRC))
 OBJ = $(patsubst %.c, %.o, $(SRC))
 OBJ_DIR = ./obj
 OBJ_O = $(patsubst %, $(OBJ_DIR)/%, $(OBJ))
 NAME = libft.a
-.PHONY: $(NAME) all clean fclean re
+.PHONY: all clean fclean re
 
-all: $(OBJ_O) $(NAME)
+all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) -c $< -o $@ -I $(HDIR) $(CFLAG)
 
-$(NAME):
+$(NAME): $(OBJ_DIR) $(OBJ_O)
 	@ar -rc $(NAME) $(OBJ_O)
 	@echo "\033[32mlibft compiled\033[0m"
+
+$(OBJ_DIR):
+	@mkdir $(OBJ_DIR)
 
 clean:
 	@rm -rf $(OBJ_O)
