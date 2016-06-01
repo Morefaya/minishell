@@ -6,35 +6,41 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 20:38:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/05/31 20:00:21 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/01 18:41:31 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
 int	main(int ac, char **av, char **env)
 {
-	int		i;
 	char	*line;
+	pid_t	pid;
+	int		i;
+	t_list	*lst;
 
 	i = 0;
 	ac = 0;
-	/*?while (env[i])
-	{
-		ft_putendl(env[i]);
-		i++;
-	}*/
+	signal(SIGINT, SIG_IGN);
+	if (!(lst = lst_tab2d(env)))
+		ft_putstr("NULL");
+	print_lst(lst);
 	while (42)
 	{
 		ft_putstr("jcazako> ");
 		get_next_line(0, &line);
-		if (ft_strstr(line, "ls"))
+		if (ft_strstr(line, "exit"))
+			exit(0);
+		if (!(pid = fork()))
 		{
-			i = execve("/bin/ls", av, env);
-			break ;
+			signal(SIGINT, SIG_DFL);
+			execve("/bin/ls", av, env);
 		}
-		free(line);
+		else if (pid > 0)
+		{
+			signal(SIGINT, SIG_IGN);
+			wait(&i);
+		}
 	}
 	free(line);
 	return (0);

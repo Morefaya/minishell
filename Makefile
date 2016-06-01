@@ -1,6 +1,6 @@
 CC = gcc
 CFLAG = -Wall -Wextra -Werror
-SRC = main.c 
+SRC = main.c lst_tab2d.c print_lst.c 
 SRC_DIR = ./src
 SRC_C = $(patsubst %, $(SRC_DIR)/%, $(SRC))
 OBJ = $(SRC:.c=.o)
@@ -27,16 +27,15 @@ $(NAME): $(OBJ_DIR) $(OBJ_O)
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
 	@$(CC) -c $< -o $@ -I $(HDIR) $(CFLAG)
 
 clean:
-	@rm -rf $(OBJ_O)
+	@rm -rf $(OBJ_O) $(OBJ_DIR)
 	@echo "\033[31mobject files removed\033[0m"
 
 fclean: clean clean_lib
 	@rm -rf $(NAME)
-	@rm -rf $(OBJ_DIR)
 	@echo "\033[31m$(NAME) removed\033[0m"
 
 re: fclean all
