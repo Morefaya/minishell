@@ -6,11 +6,18 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 16:49:40 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/01 18:41:04 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/01 22:20:31 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	del_content(t_shell *content, size_t size)
+{
+	free(content->str);
+	ft_bzero(content, size);
+	free(content);
+}
 
 static t_list	*get_link(char **tab)
 {
