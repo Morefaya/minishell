@@ -16,24 +16,19 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	pid_t	pid;
-	int		i;
-	t_list	*lst;
+	int	i;
+	t_list	*env_l;
+	char	**cmd_t;
 
 	i = 0;
 	ac = 0;
-	signal(SIGINT, SIG_IGN);
-	if (!(lst = lst_tab2d(env)))
+	cmd_t = NULL;
+	if (!(env_l = lst_tab2d(env)))
 		ft_putstr("NULL");
-	print_lst(lst);
-	ft_lstdel(&lst, (void(*)(void*, size_t))del_content);
-	//print_lst(lst);
 	while (42)
 	{
 		ft_putstr("jcazako> ");
-		get_next_line(0, &line);
-		if (ft_strstr(line, "exit"))
-			exit(0);
-		free(line);
+		print_tab2d((cmd_t = read_cmd()));	
 		if (!(pid = fork()))
 		{
 			signal(SIGINT, SIG_DFL);
@@ -45,6 +40,8 @@ int	main(int ac, char **av, char **env)
 			wait(&i);
 		}
 	}
+	//free_cmd_t();
+	ft_lstdel(&env_l, (void(*)(void*, size_t))del_content);
 	free(line);
 	return (0);
 }

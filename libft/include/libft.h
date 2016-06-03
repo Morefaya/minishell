@@ -101,5 +101,6 @@ void				ft_putendstr(char *str, char a);
 int				ft_getnbr(const char *str);
 int				ft_strisnum(const char *str);
 int				ft_select_charset(char ch, const char *charset);
+char				**ft_strstr_split(const char *str, char *charset);
 
 #endif
