@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 18:27:44 by jcazako           #+#    #+#             */
-/*   Updated: 2016/02/19 17:49:28 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/03 11:55:08 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,7 @@ void				ft_putendstr(char *str, char a);
 int				ft_getnbr(const char *str);
 int				ft_strisnum(const char *str);
 int				ft_select_charset(char ch, const char *charset);
+char				**ft_strstr_split(const char *str, char *charset);
+void				ft_lstadd_back(t_list *lst, t_list *n_lst);
 
 #endif

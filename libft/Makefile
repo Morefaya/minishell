@@ -25,7 +25,7 @@ ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 ft_putstr_right.c ft_putstr_left.c ft_putendchar.c \
 ft_getnbr.c ft_strisnum.c get_next_line.c \
-ft_select_charset.c ft_strstr_split.c
+ft_select_charset.c ft_strstr_split.c ft_lstadd_back.c
 SRC_DIR = ./src
 SRC_C = $(patsubst %, $(SRC_DIR)/%, $(SRC))
 OBJ = $(patsubst %.c, %.o, $(SRC))
@@ -44,10 +44,10 @@ $(NAME): $(OBJ_DIR) $(OBJ_O)
 	@echo "\033[32mlibft compiled\033[0m"
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	@mkdir $@
 
 clean:
-	@rm -rf $(OBJ_O)
+	@rm -rf $(OBJ_O) $(OBJ_DIR)
 	@echo "\033[31mlibft object file removed\033[0m"
 
 fclean: clean

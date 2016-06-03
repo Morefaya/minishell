@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 16:49:40 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/01 22:20:31 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/03 13:21:54 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_list	*get_link(char **tab)
 	t_list	*lst;
 	t_shell	content;
 
+	if (!tab || !*tab || !**tab)
+		return (NULL);
 	if (!(content.str = ft_strdup(*tab)))
 		return (NULL);
 	if (!(lst = ft_lstnew(&content, sizeof(content))))
@@ -39,14 +41,18 @@ static void		make_link(t_list **lst, char **tab)
 	t_list	*lst_tmp;
 
 	if ((lst_tmp = get_link(tab)))
-		ft_lstadd(lst, lst_tmp);
+		ft_lstadd_back(*lst, lst_tmp);
 }
 
 t_list			*lst_tab2d(char **tab)
 {
 	t_list	*lst;
 
-	lst = NULL;
+	if (!tab)
+		return (NULL);
+	if (!(lst = get_link(tab)))
+		return (NULL);
+	tab++;
 	while (*tab)
 	{
 		make_link(&lst, tab);
