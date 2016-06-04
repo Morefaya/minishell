@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:52:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/04 19:32:55 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/04 20:12:35 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_clean(char *str)
 			str++;
 		while (*str && !ft_check_charset(*str, " \t\n"))
 			str_clean[i++] = *str++;
-		if (*str)
+		if (*str && i < word_str_len + nb_wd)
 			str_clean[i++] = ' ';
 	}
 	return (str_clean);
