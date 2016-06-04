@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strstr_split.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/04 17:32:17 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/04 17:32:20 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
@@ -35,9 +46,9 @@ static int	gt_wordln(const char *str, char *a)
 
 static char	*gt_word(const char **str, char *a)
 {
-	int	len_w;
+	int		len_w;
 	char	*word;
-	int	i;
+	int		i;
 
 	while (ft_check_charset(**str, a))
 		(*str)++;
@@ -68,7 +79,7 @@ static char	**ft_strnull(void)
 
 char		**ft_strstr_split(const char *str, char *a)
 {
-	int	nb_word;
+	int		nb_word;
 	char	**tab;
 
 	nb_word = gt_wordnb(str, a);

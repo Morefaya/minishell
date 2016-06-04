@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 20:38:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/03 13:34:05 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/04 19:37:07 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	pid_t	pid;
-	int	i;
+	int		i;
 	t_list	*env_l;
 	t_list	*cmd_l;
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av, char **env)
 	while (42)
 	{
 		ft_putstr("jcazako> ");
-		print_lst((cmd_l = read_cmd()));	
+		print_lst(cmd_l = read_cmd());
 		if (!(pid = fork()))
 		{
 			signal(SIGINT, SIG_DFL);

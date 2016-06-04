@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 13:19:00 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/03 13:25:03 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/04 19:00:54 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**trim_split(char **cmd_tab)
 	while (cmd_tab[i])
 	{
 		tmp = cmd_tab[i];
-		if (!(cmd_tab[i] = ft_strtrim(cmd_tab[i])))
+		if (!(cmd_tab[i] = ft_clean(cmd_tab[i])))
 		{
 			free_tab2d(cmd_tab);
 			return (NULL);

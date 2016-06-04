@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_getnbr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/04 17:26:15 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/04 17:26:57 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void	deal_base(const char **str, int *base)
@@ -18,7 +30,7 @@ static void	deal_base(const char **str, int *base)
 	}
 }
 
-int		ft_getnbr(const char *str)
+int			ft_getnbr(const char *str)
 {
 	int	nbr;
 	int	signe;

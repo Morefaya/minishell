@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 18:27:44 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/03 11:55:08 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/04 17:53:21 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 # include <string.h>
 # include "get_next_line.h"
-
 
 typedef struct		s_list
 {
@@ -98,10 +97,12 @@ int					ft_sqrt(int nb);
 void				ft_putstr_left(char *str, int width);
 void				ft_putstr_right(char *str, int width);
 void				ft_putendstr(char *str, char a);
-int				ft_getnbr(const char *str);
-int				ft_strisnum(const char *str);
-int				ft_select_charset(char ch, const char *charset);
+int					ft_getnbr(const char *str);
+int					ft_strisnum(const char *str);
+int					ft_select_charset(char ch, const char *charset);
 char				**ft_strstr_split(const char *str, char *charset);
 void				ft_lstadd_back(t_list *lst, t_list *n_lst);
-
+int					ft_wordnb(char *str);
+int					ft_strlen_str(char *str);
+char				*ft_clean(char *str);
 #endif

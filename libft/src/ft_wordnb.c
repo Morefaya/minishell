@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_wordnb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/04 19:47:01 by jcazako          ###   ########.fr       */
+/*   Created: 2016/06/04 16:58:57 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/04 17:38:58 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-static void	check_env_opt(char *cmd, t_opt_env *opt_env)
+int		ft_wordnb(char *str)
 {
-	if (*cmd == 'u')
-		opt_env->u = 1;
-	else if (*cmd == 'i')
-		opt_env->i = 1;
-}
+	int	nb;
 
-void	ft_env(t_list *cmd_l, t_list *env_l)
-{
-	print_list(env_l);
+	nb = 0;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		while (*str && ft_check_charset(*str, " \t\n"))
+			str++;
+		if (*str)
+		{
+			nb++;
+			while (*str && !ft_check_charset(*str, " \t\n"))
+				str++;
+		}
+	}
+	return (nb);
 }
