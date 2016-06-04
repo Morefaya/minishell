@@ -16,5 +16,6 @@ void	del_content(t_shell *content, size_t size);
 t_list	*read_cmd(void);
 void	print_tab2d(char **tab);
 void	free_tab2d(char **tab);
+int	builtins(t_list *lst);
 
 #endif
