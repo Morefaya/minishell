@@ -8,7 +8,7 @@ char	*get_cmd(char *str)
 
 	i = 0;
 	cmd = NULL;
-	while (str[i] && ft_check_charset(str[i], " \t\n"))
+	while (str[i] && !ft_check_charset(str[i], " \t\n"))
 		i++;
 	if (!(cmd = ft_strnew(i)))
 		return (NULL);

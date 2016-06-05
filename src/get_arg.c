@@ -21,7 +21,11 @@ static void	fill_arg_t(char *str, char **arg)
 			free_tab2d(arg);
 			return ;
 		}
-		i++;
+		else
+		{
+			str += j;
+			i++;
+		}
 	}
 }
 
@@ -34,13 +38,15 @@ char		**get_arg(char *str)
 	arg = NULL;
 	nb_wd = 0;
 	i = 0;
-	while (*str && ft_check_charset(*str, " /t/n"))
-		str++;
 	nb_wd = ft_wordnb(str);
 	if (!(arg = (char**)malloc(sizeof(*arg) * nb_wd + 1)))
 		return (NULL);
 	while (i < nb_wd + 1)
-		arg[i++] = NULL;
+	{
+		arg[i] = NULL;
+		i++;
+	}
 	fill_arg_t(str, arg);
+	print_tab2d(arg);
 	return (arg);
 }

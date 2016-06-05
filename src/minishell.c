@@ -35,7 +35,7 @@ static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
 	signal(SIGINT, SIG_DFL);
 	if (!(env_t = tab2d_lst(env_l)))
 		return ;
-	if (!(arg = get_arg(((t_shell*)(cmd_l->content))->str)))
+	if (!(arg = ft_strstr_split(((t_shell*)(cmd_l->content))->str, " \t\n")))
 		return ;
 	while (*path_t)
 	{
