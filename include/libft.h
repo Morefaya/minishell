@@ -105,4 +105,5 @@ void				ft_lstadd_back(t_list *lst, t_list *n_lst);
 int					ft_wordnb(char *str);
 int					ft_strlen_str(char *str);
 char				*ft_clean(char *str);
+int				ft_lstcount(t_list *lst);
 #endif

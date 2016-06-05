@@ -12,15 +12,16 @@
 
 #include "minishell.h"
 
-static void	check_env_opt(char *cmd, t_opt_env *opt_env)
+/*static void	check_env_opt(char *cmd, t_opt_env *opt_env)
 {
 	if (*cmd == 'u')
 		opt_env->u = 1;
 	else if (*cmd == 'i')
 		opt_env->i = 1;
-}
+}*/
 
 void	ft_env(t_list *cmd_l, t_list *env_l)
 {
-	print_list(env_l);
+	print_lst(env_l);
+	cmd_l++;
 }

@@ -4,11 +4,10 @@
 char	*make_cmd_path(char *path, t_list *cmd_l)
 {
 	char	*tmp;
-	char	*path;
 	char	*cmd;
 
 	tmp = NULL;
-	if (!(cmd = get_cmd((t_shell*)(cmd_l->content))->str))
+	if (!(cmd = get_cmd(((t_shell*)(cmd_l->content))->str)))
 		return (NULL);
 	if (!(tmp = ft_strjoin(path, "/")))
 	{

@@ -33,7 +33,7 @@ static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
 	ret = -1;
 	cmd = NULL;
 	signal(SIGINT, SIG_DFL);
-	if (!(env_t = lst_tab2d(env_l)))
+	if (!(env_t = tab2d_lst(env_l)))
 		return ;
 	if (!(arg = get_arg(((t_shell*)(cmd_l->content))->str)))
 		return ;
@@ -43,7 +43,7 @@ static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
 			return ;
 		ret = execve(cmd, arg, env_t);
 		free(cmd);
-		path_t++;	
+		path_t++;
 	}
 	exe_file(cmd_l, arg, env_t, ret);
 	ft_putchar('\n');
