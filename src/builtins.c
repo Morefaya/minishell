@@ -12,15 +12,16 @@
 
 #include "minishell.h"
 
-static int	ret_ft(void(*ft)(t_list*), t_list *arg,int ret)
+/*static int	ret_ft(void(*ft)(t_list*), t_list *arg,int ret)
 {
 	ft(arg);
 	return (ret);
-}
+}*/
 
 int	builtins(t_list	*lst)
 {
-	if (ft_strncmp(((t_shell*)(lst->content))->str, "env",
+	lst++;
+	/*if (ft_strncmp(((t_shell*)(lst->content))->str, "env",
 		ft_strlen("env")))
 		return (ret_ft(ft_env, 1));
 	else if (ft_strncmp(((t_shell*)(lst->content))->str, "setenv",
@@ -35,5 +36,5 @@ int	builtins(t_list	*lst)
 	else if (ft_strncmp(((t_shell*)(lst->content))->str, "cd", ft_strlen("cd")))
 		return (ret_ft(ft_env, 1));
 	else
-		return (0);
+		*/return (0);
 }
