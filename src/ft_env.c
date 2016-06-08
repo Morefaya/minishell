@@ -25,8 +25,6 @@ static void	putillegal_env(char a)
 static void	delete_env(char **str, t_list *env_l)
 {
 	(*str)++;
-	env_l->content->str = NULL;
-	env_l-next = NULL;
 }
 
 static void	unset_env(char **str, t_list *env_l)
@@ -92,7 +90,7 @@ void	ft_env(t_list *cmd_l, t_list *env_l)
 
 	if (!(env_cpy = ft_lstcpy(env_l)))
 		return ;
-	parse(((t_shell*)(cmd_l->content))->str, env_cpy);
+	parse(((t_shell*)(cmd_l->content))->str, &env_cpy);
 
 
 
