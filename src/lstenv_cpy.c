@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   lstenv_cpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/27 10:36:48 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 11:45:04 by jcazako          ###   ########.fr       */
+/*   Created: 2016/06/09 11:19:45 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/09 11:55:24 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
-
-t_list	*ft_lstnew(const void *content, size_t content_size)
+t_list	*lstenv_cpy(t_list *env)
 {
-	t_list	*new;
+	t_list	*env_tmp;
+	t_list	*env_cpy;
 
-	if (!(new = (t_list*)ft_memalloc(sizeof(*new))))
-		return (NULL);
-	if (content)
+	env_tmp = NULL;
+	env_cpy = NULL;
+	while (*env)
 	{
-		if (!(new->content = ft_memalloc(content_size)))
+		if (!env_cpy)
 		{
-			free(new);
-			return (NULL);
+			if (!(env_cpy = ft_lstnew(env->content, env->content_size)))
+				return (NULL);
 		}
-		ft_memcpy(new->content, content, content_size);
-		new->content_size = content_size;
-		new->next = NULL;
+		else
+		{
+			if (!(env_tmp = ft_lstnew(env->content, env->content_size)))
+				return (NULL);
+			ft_lstadd_back(env_cpy, env_tmp);
+		}
+		env->next;
 	}
-	return (new);
+	return (env_cpy);
 }
