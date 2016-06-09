@@ -29,5 +29,7 @@ void			putillegal_env(char a);
 void			delete_env(char **m, t_list **env_c);
 void			unset_env(char **str, t_list **env_c);
 int				ft_unsetenv(t_list *cmd_l, t_list **env_l);
+
+void			del_linkenv(char *u_env, t_list **env_l, int len);
 int				ft_setenv(t_list *cmd_l, t_list **env_l);
 #endif
