@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/09 16:29:56 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -25,7 +36,7 @@ static void	exe_file(t_list *cmd_l, char **arg, char **env_t, int ret)
 
 static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
 {
-	int	ret;
+	int		ret;
 	char	*cmd;
 	char	**arg;
 	char	**env_t;
@@ -54,7 +65,7 @@ static void	exe_cmd(t_list *cmd, t_list *env_l)
 {
 	char	**path_t;
 	pid_t	pid;
-	int	i;
+	int		i;
 
 	path_t = NULL;
 	if (!(path_t = get_paths_vars(env_l)))
@@ -69,12 +80,12 @@ static void	exe_cmd(t_list *cmd, t_list *env_l)
 	free_tab2d(path_t);
 }
 
-int		minishell(t_list *cmd_l, t_list *env_l)
+int		minishell(t_list *cmd_l, t_list **env_l)
 {
 	while (cmd_l)
 	{
-		if (!builtins(cmd_l))
-			exe_cmd(cmd_l, env_l);
+		if (!builtins(cmd_l, env_l))
+			exe_cmd(cmd_l, *env_l);
 		cmd_l = cmd_l->next;
 	}
 	return (0);
