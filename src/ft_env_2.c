@@ -6,31 +6,41 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 12:21:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 14:28:11 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/10 20:48:36 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		putillegal_opt_env(char a)
+static void	del_linkcpy(char *unset, t_list **env_c)
 {
-	ft_putstr("env: illegal option --");
-	ft_putchar(a);
-	ft_putchar('\n');
-	ft_putstr("usage: env [-i] [-u name]\n");
-	ft_putstr("[name=value ...] [utility [argument ...]]\n");
-	exit(1);
-}
+	t_list	*tmp;
+	t_list	*box;
+	int		len;
 
-void		delete_env(char **str, t_list **env_c)
-{
-	(*str)++;
-}
-
-
-static char	*get_arg_unset(char **str)
-{
-	
+	len = ft_strlen(unset);
+	tmp = *env_c;
+	//ft_putendl(unset);
+	if (ft_strnstr(((t_shell*)(tmp->content))->str, unset, len))
+	{
+		tmp = *env_c;
+		*env_c = (*env_c)->next;
+		freed(&tmp);
+		return ;
+	}
+	while (tmp->next)
+	{
+		//ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		if (ft_strnstr(((t_shell*)(tmp->next->content))->str, unset, len))
+		{
+			//ft_putendl("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+			box = tmp->next;
+			tmp->next = tmp->next->next;
+			freed(&box);
+			return ;
+		}
+		tmp = tmp->next;
+	}
 }
 
 void		unset_ft_env(char **str, t_list **env_c)
@@ -49,13 +59,18 @@ void		unset_ft_env(char **str, t_list **env_c)
 		i++;
 	if (!(tmp = ft_strsub(*str, 0, i)))
 		return ;
+	//ft_putendl(tmp);
+	if (check_arg(tmp))
+	{
+		unsetenv_format();
+		free(tmp);
+		return ;
+	}
 	if (!(unset = ft_strjoin(tmp, "=")))
 		return ;
 	free(tmp);
-	if (check_arg(unset))
-	{
-		ft_putstr("env: unsetenv ");
-		ft_putstr(unset);
-		ft_putstr(" Invalid argument\n");
-	}
+	if (*env_c)
+		del_linkcpy(unset, env_c);
+	free(unset);
+	(*str) += i;
 }

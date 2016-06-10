@@ -25,11 +25,16 @@ char			**tab2d_lst(t_list *lst);
 int				minishell(t_list *cmd_l, t_list **env_l);
 
 t_list			*lstenv_cpy(t_list *env);
-void			putillegal_env(char a);
+void			putillegal_opt_env(char a);
 void			delete_env(char **m, t_list **env_c);
-void			unset_env(char **str, t_list **env_c);
 int				ft_unsetenv(t_list *cmd_l, t_list **env_l);
-
-void			del_linkenv(char *u_env, t_list **env_l, int len);
+int				check_arg(char *str);
+void			del_linkenv(char *u_env, t_list **env_l);
 int				ft_setenv(t_list *cmd_l, t_list **env_l);
+int				ft_env(t_list *cmd_l, t_list *env_l);
+void			unset_ft_env(char **str, t_list **env_c);
+void			set_env(char *str, t_list **env_l);
+void			freed(t_list **to_free);
+void			freed_all(t_list **begin_free);
+void			unsetenv_format(void);
 #endif

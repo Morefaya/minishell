@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 17:38:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 21:56:13 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/10 20:49:50 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,41 @@ static char	*gt_arg(char *str)
 	if (ft_strchr(s_env, ' ') || ft_strchr(s_env, '\t'
 		|| ft_strchr(s_env, '\n')))
 	{
+		unsetenv_format();
 		free(s_env);
 		return (NULL);
 	}
 	return (s_env);
 }
 
-int			ft_setenv(t_list *cmd_l, t_list **env_l)
+void		set_env(char *str, t_list **env_l)
 {
-	t_shell	content;
 	t_list	*new;
+	t_shell	content;
 
-	if (!ft_strchr(((t_shell*)(cmd_l->content))->str, '='))
-		return (1);
-	if (!(content.str = gt_arg(((t_shell*)(cmd_l->content))->str)))
-		return (1);
+	content.str = str;
 	if (check_env_name(content.str, *env_l))
 	{
 		print_lst(*env_l);
-		return (1);
+		return ;
 	}
 	if (!(new = ft_lstnew(&content, sizeof(content))))
 	{
-		free(content.str);
-		return (1);
+		free(str);
+		return ;
 	}
 	ft_lstadd_back(*env_l, new);
-	print_lst(*env_l);
+	print_lst(*env_l);	
+}
+
+int			ft_setenv(t_list *cmd_l, t_list **env_l)
+{
+	char	*str;
+
+	if (!ft_strchr(((t_shell*)(cmd_l->content))->str, '='))
+		return (1);
+	else if (!(str = gt_arg(((t_shell*)(cmd_l->content))->str)))
+		return (1);
+	set_env(str, env_l);
 	return (1);
 }

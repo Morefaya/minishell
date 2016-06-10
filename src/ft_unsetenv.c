@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 13:41:09 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 21:26:30 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/10 20:20:44 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ static char	*gt_env_name(char *str)
 	return (u_env);
 }
 
-void	del_linkenv(char *u_env, t_list **env_l, int len)
+void		del_linkenv(char *u_env, t_list **env_l)
 {
 	t_list	*tmp;
 	t_list	*box;
+	int		len;
 
+	len = ft_strlen(u_env);
 	tmp = *env_l;
 	if (ft_strnstr(((t_shell*)(tmp->content))->str, u_env, len))
 	{
@@ -63,13 +65,14 @@ void	del_linkenv(char *u_env, t_list **env_l, int len)
 	}
 }
 
-int		ft_unsetenv(t_list *cmd_l, t_list **env_l)
+int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
 {
 	char	*u_env;
 
 	if (!(u_env = gt_env_name(((t_shell*)(cmd_l->content))->str)))
-		return (0);
-	del_linkenv(u_env, env_l, ft_strlen(u_env));
+		return (1);
+	if (u_env)
+		del_linkenv(u_env, env_l);
 	print_lst(*env_l);
 	return (1);
 }
