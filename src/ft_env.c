@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/10 20:23:38 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/10 22:11:34 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ static int	check_opt(char **str, t_list **env_c)
 	return (0);
 }
 
+static int	setting(char *str, t_list **env_c)
+{
+	char	*set_var;
+	int		i;
+
+	i = 0;
+	while (str[i] && !ft_check_charset(str[i], " \t\n"))
+		i++;
+	if (!(set_var = ft_strsub(str, 0, i)))
+		return (0);
+	set_env(set_var, env_c);
+	free(set_var);
+	return (i);
+}
+
 static void	parse(char *str, t_list **env_c)
 {
 	char	*tmp;
@@ -58,8 +73,7 @@ static void	parse(char *str, t_list **env_c)
 		if (*str == '-')
 			exe = check_opt(&str, env_c);
 		else if ((exe = check_arg(str)))
-			set_env(str, env_c);
-		ft_putchar('@');
+			str += setting(str, env_c);
 	}
 	if (exe)
 		ft_putendl("execute_now");
