@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 13:19:00 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 16:27:54 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:50:43 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ t_list		*read_cmd(void)
 	cmd_l = NULL;
 	if (get_next_line(0, &line) <= 0)
 		return (NULL);
-	if (ft_strstr(line, "exit"))
-		exit(0);
 	if (!(cmd_t = ft_strsplit(line, ';')))
 		return (NULL);
 	free(line);

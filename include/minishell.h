@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 16:31:46 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 19:54:23 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,7 @@ void			freed(t_list **to_free);
 void			freed_all(t_list **begin_free);
 void			unsetenv_format(void);
 void			exe_cmd(char *cmd, t_list *env_l);
+int				ft_exit(void);
+int				ft_cd(t_list *lst, t_list *env_l);
+int				tablen(char **tab);
 #endif

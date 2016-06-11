@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 14:10:32 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 15:35:07 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 17:13:52 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,11 @@ int		builtins(t_list *lst, t_list **env_l)
 	else if (ft_strnstr(((t_shell*)(lst->content))->str, "env",
 		ft_strlen("env")))
 		return (ft_env(lst, *env_l));
+	else if (ft_strnstr(((t_shell*)(lst->content))->str, "exit",
+		ft_strlen("exit")))
+		return (ft_exit());
+	else if (ft_strnstr(((t_shell*)(lst->content))->str, "cd",
+		ft_strlen("cd")))
+		return (ft_cd(lst, *env_l));
 	return (0);
 }
