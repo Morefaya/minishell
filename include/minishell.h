@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/11 16:31:46 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -23,7 +35,6 @@ char			**get_arg(char *str);
 char			*get_cmd(char *str);
 char			**tab2d_lst(t_list *lst);
 int				minishell(t_list *cmd_l, t_list **env_l);
-
 t_list			*lstenv_cpy(t_list *env);
 void			putillegal_opt_env(char a);
 void			delete_env(char **m, t_list **env_c);

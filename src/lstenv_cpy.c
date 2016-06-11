@@ -6,9 +6,10 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 11:19:45 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/10 18:28:24 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:25:55 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 t_list	*lstenv_cpy(t_list *env)

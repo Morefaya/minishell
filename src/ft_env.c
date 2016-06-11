@@ -6,24 +6,11 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 15:56:09 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:20:02 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*int			check_arg(char *str)
-{
-	if (!str)
-		return (0);
-	while (*str && !ft_check_charset(*str, " \t\n"))
-	{
-		if (*str == '=')
-			return (1);
-		str++;
-	}
-	return (0);
-}*/
 
 static int	check_opt(char **str, t_list **env_c)
 {
@@ -80,7 +67,7 @@ static int	parse(char *str, t_list **env_c)
 		else if (check_arg(str))
 			str += setting(str, env_c);
 		else
-			break;
+			break ;
 	}
 	if (*str && !ret)
 	{

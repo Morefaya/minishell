@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 20:30:49 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 15:54:54 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:27:31 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	unsetenv_format(void)
 	ft_putstr("unsetenv: Invalid argument\n");
 }
 
-void		putillegal_opt_env(char a)
+void	putillegal_opt_env(char a)
 {
 	ft_putstr("env: illegal option --");
 	ft_putchar(a);

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 13:19:00 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/04 19:00:54 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:27:54 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**trim_split(char **cmd_tab)
 	char	*tmp;
 
 	tmp = NULL;
-	i = 0;	 
+	i = 0;
 	while (cmd_tab[i])
 	{
 		tmp = cmd_tab[i];

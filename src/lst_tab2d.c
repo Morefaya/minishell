@@ -6,13 +6,13 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/01 16:49:40 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/04 18:26:53 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:29:06 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_content(t_shell *content, size_t size)
+void			del_content(t_shell *content, size_t size)
 {
 	free(content->str);
 	ft_bzero(content, size);

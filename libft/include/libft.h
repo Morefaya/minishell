@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 18:27:44 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/04 17:53:21 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:30:10 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void				ft_lstadd_back(t_list *lst, t_list *n_lst);
 int					ft_wordnb(char *str);
 int					ft_strlen_str(char *str);
 char				*ft_clean(char *str);
-int				ft_lstcount(t_list *lst);
+int					ft_lstcount(t_list *lst);
 #endif

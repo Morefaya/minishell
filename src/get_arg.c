@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_arg.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/06/11 16:21:25 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/11 16:22:45 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	fill_arg_t(char *str, char **arg)	
+static void	fill_arg_t(char *str, char **arg)
 {
 	size_t	j;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!str)
@@ -32,8 +43,8 @@ static void	fill_arg_t(char *str, char **arg)
 char		**get_arg(char *str)
 {
 	char	**arg;
-	int	nb_wd;
-	int	i;
+	int		nb_wd;
+	int		i;
 
 	arg = NULL;
 	nb_wd = 0;

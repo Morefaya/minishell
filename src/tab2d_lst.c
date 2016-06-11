@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:18:57 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 15:19:01 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:27:09 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**tab2d_lst(t_list *lst)
 {
-	int	nb_el;
+	int		nb_el;
 	char	**tab;
-	int	i;
+	int		i;
 
 	nb_el = 0;
 	tab = NULL;

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 14:12:31 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:28:14 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		exe_cmd(char *cmd, t_list *env_l)
 	free_tab2d(path_t);
 }
 
-int		minishell(t_list *cmd_l, t_list **env_l)
+int			minishell(t_list *cmd_l, t_list **env_l)
 {
 	while (cmd_l)
 	{

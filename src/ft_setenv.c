@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 17:38:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/10 22:04:08 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 16:24:59 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	check_env_name(char *str, t_list *env_l)
 			u_env, ft_strlen(u_env)))
 		{
 			ret = 1;
-			break;
+			break ;
 		}
 		env_l = env_l->next;
 	}
@@ -104,6 +104,6 @@ int			ft_setenv(t_list *cmd_l, t_list **env_l)
 	else if (!(str = gt_arg(((t_shell*)(cmd_l->content))->str)))
 		return (1);
 	set_env(str, env_l);
-	print_lst(*env_l);	
+	print_lst(*env_l);
 	return (1);
 }
