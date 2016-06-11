@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 20:38:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 16:35:19 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 14:59:40 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, SIG_IGN);
 	while (42)
 	{
-		ft_putstr("jcazako> ");
+		ft_putstr("\033[32mjcazako> \033[0m");
 		cmd_l = read_cmd();
 		minishell(cmd_l, &env_l);
 		ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 12:21:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/10 20:48:36 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 15:39:42 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	del_linkcpy(char *unset, t_list **env_c)
 
 	len = ft_strlen(unset);
 	tmp = *env_c;
-	//ft_putendl(unset);
 	if (ft_strnstr(((t_shell*)(tmp->content))->str, unset, len))
 	{
 		tmp = *env_c;
@@ -30,10 +29,8 @@ static void	del_linkcpy(char *unset, t_list **env_c)
 	}
 	while (tmp->next)
 	{
-		//ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		if (ft_strnstr(((t_shell*)(tmp->next->content))->str, unset, len))
 		{
-			//ft_putendl("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
 			box = tmp->next;
 			tmp->next = tmp->next->next;
 			freed(&box);
@@ -43,6 +40,13 @@ static void	del_linkcpy(char *unset, t_list **env_c)
 	}
 }
 
+static void	start_unset(char **str)
+{
+	(*str)++;
+	while (**str && ft_check_charset(**str, " \t\n"))
+		(*str)++;
+}
+
 void		unset_ft_env(char **str, t_list **env_c)
 {
 	char	*tmp;
@@ -50,16 +54,13 @@ void		unset_ft_env(char **str, t_list **env_c)
 	char	*unset;
 
 	i = 0;
-	(*str)++;
 	unset = NULL;
-	while (**str && ft_check_charset(**str, " \t\n"))
-		(*str)++;
+	start_unset(str);
 	tmp = *str;
 	while (tmp[i] && !ft_check_charset(tmp[i], " \t\n"))
 		i++;
 	if (!(tmp = ft_strsub(*str, 0, i)))
 		return ;
-	//ft_putendl(tmp);
 	if (check_arg(tmp))
 	{
 		unsetenv_format();

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/09 16:29:56 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/11 14:12:31 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	free_son(char *cmd, char **arg, char **env_t)
 	free_tab2d(env_t);
 }
 
-static void	exe_file(t_list *cmd_l, char **arg, char **env_t, int ret)
+static void	exe_file(char *str, char **arg, char **env_t, int ret)
 {
 	char	*cmd;
 
 	cmd = NULL;
-	if (!(cmd = get_cmd(((t_shell*)(cmd_l->content))->str)))
+	if (!(cmd = get_cmd(str)))
 		return (free_son(cmd, env_t, arg));
 	if ((ret == -1) && (execve(cmd, arg, env_t) == -1))
 	{
@@ -34,7 +34,7 @@ static void	exe_file(t_list *cmd_l, char **arg, char **env_t, int ret)
 	free_son(cmd, arg, env_t);
 }
 
-static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
+static void	son_process(char *str, char **path_t, t_list *env_l)
 {
 	int		ret;
 	char	*cmd;
@@ -46,22 +46,22 @@ static void	son_process(t_list *cmd_l, char **path_t, t_list *env_l)
 	signal(SIGINT, SIG_DFL);
 	if (!(env_t = tab2d_lst(env_l)))
 		return ;
-	if (!(arg = ft_strstr_split(((t_shell*)(cmd_l->content))->str, " \t\n")))
+	if (!(arg = ft_strstr_split(str, " \t\n")))
 		return ;
 	while (*path_t)
 	{
-		if (!(cmd = make_cmd_path(*path_t, cmd_l)))
+		if (!(cmd = make_cmd_path(*path_t, str)))
 			return ;
 		ret = execve(cmd, arg, env_t);
 		free(cmd);
 		path_t++;
 	}
-	exe_file(cmd_l, arg, env_t, ret);
+	exe_file(str, arg, env_t, ret);
 	ft_putchar('\n');
 	exit(ret);
 }
 
-static void	exe_cmd(t_list *cmd, t_list *env_l)
+void		exe_cmd(char *cmd, t_list *env_l)
 {
 	char	**path_t;
 	pid_t	pid;
@@ -85,7 +85,7 @@ int		minishell(t_list *cmd_l, t_list **env_l)
 	while (cmd_l)
 	{
 		if (!builtins(cmd_l, env_l))
-			exe_cmd(cmd_l, *env_l);
+			exe_cmd(((t_shell*)(cmd_l->content))->str, *env_l);
 		cmd_l = cmd_l->next;
 	}
 	return (0);

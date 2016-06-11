@@ -18,7 +18,7 @@ void			print_tab2d(char **tab);
 void			free_tab2d(char **tab);
 int				builtins(t_list *lst, t_list **env_l);
 char			**get_paths_vars(t_list *env_l);
-char			*make_cmd_path(char *path, t_list *cmd_l);
+char			*make_cmd_path(char *path, char *str);
 char			**get_arg(char *str);
 char			*get_cmd(char *str);
 char			**tab2d_lst(t_list *lst);
@@ -37,4 +37,5 @@ void			set_env(char *str, t_list **env_l);
 void			freed(t_list **to_free);
 void			freed_all(t_list **begin_free);
 void			unsetenv_format(void);
+void			exe_cmd(char *cmd, t_list *env_l);
 #endif
