@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 19:54:23 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/12 12:02:33 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <signal.h>
 # include <unistd.h>
+
+# define BUFF_SIZE 1024
 
 typedef struct	s_shell
 {
