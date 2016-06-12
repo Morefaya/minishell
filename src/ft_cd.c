@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/12 13:07:28 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/12 16:31:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,34 @@ static char	*cd_arg(char *str, int *opt)
 	return (cd_split[i]);
 }
 
-static char	*deal_arg(char *str)
+static char	*deal_arg(char *str, int opt)
 {
-	char	*pwd;
-	char	*a_pwd;
+	struct stat	f_stat;
 
-	if (!(pwd = ft_strnew(BUFF_SIZE)))
+	if (!ft_strcmp(str, "."))
+		return (get_pwd());
+	else if (!ft_strcmp(str, ".."))
+		return (get_a_pwd());
+	if (access(str, F_OK))
+	{
+		ft_putstr("cd: no such file or directory: ");
+		ft_putendl(str);
 		return (NULL);
-	getcwd(pwd, BUFF_SIZE);
-	if (!(a_wd = get_a_pwd()))
-	if (ft_strcmp(str, "."))
-		return (pwd);
-
+	}
+	if (lstat(str, &f_stat) == -1)
+	{
+		ft_putendl("error lstat");
+		return (NULL);
+	}
+	
+	if (access(str, X_OK))
+	{
+		ft_putstr("cd: permission denied");
+		ft_putendl(str);
+		return (NULL);
+	}
+	opt++;
+	return (str);
 }
 
 int		ft_cd(t_list *lst, t_list *env_l)
@@ -82,14 +98,31 @@ int		ft_cd(t_list *lst, t_list *env_l)
 	int			opt;
 	int			ret;*/
 	char	*str;
+//	char	*pwd;
+//	char	*a_pwd;
 	int		opt;
 
 	opt	= 0;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
 		return (1);
 
-	ft_putendl(str);
+	deal_arg(str, opt);
+	chdir(str);
+/*	pwd = get_pwd();
+	a_pwd = get_a_pwd();
+	ft_putendl(pwd);
+	ft_putendl(a_pwd);
+
+
+	pwd = get_pwd();
+	a_pwd = get_a_pwd();
+	ft_putendl(pwd);
+	ft_putendl(a_pwd);*/
+
+
+
 	env_l++;
+	opt++;
 
 	/*if ((ret = tablen(cd_split)) == 3)
 	{
