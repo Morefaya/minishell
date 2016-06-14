@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 11:57:41 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 18:22:28 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ static int	setting(char *str, t_list **env_c)
 	return (i);
 }
 
-static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
+static char	*parse_str(t_list *cmd_l, t_list **env_c, int *ret)
 {
-	int		ret;
 	char	*str;
 
+	str = NULL;
+	if (!cmd_l)
+		return (NULL);
 	str = ((t_shell*)(cmd_l->content))->str;
-	ret = 0;
 	while (*str && !ft_check_charset(*str, " \t\n"))
 		str++;
 	while (*str)
@@ -63,19 +64,38 @@ static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
 		while (*str && ft_check_charset(*str, " \t\n"))
 			str++;
 		if (*str == '-')
-			ret = check_opt(&str, env_c);
+			*ret = check_opt(&str, env_c);
 		else if (check_arg(str))
 			str += setting(str, env_c);
 		else
 			break ;
 	}
-	((t_shell*)(cmd_l->content))->str = str;
+	return (str);
+}
+
+static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
+{
+	int		ret;
+	t_list	*cmd_c;
+	int		ret_b;
+	char	*str;
+
+	cmd_c = NULL;
+	ret_b = 0;
+	ret = 0;
+	if (!(str = parse_str(cmd_l, env_c, &ret)))
+		return (0);
+	if (!(cmd_c = ft_lstnew(cmd_l->content, cmd_l->content_size)))
+		return (0);
+	if (!(((t_shell*)(cmd_c->content))->str = ft_strdup(str)))
+		return (0);
 	if (*str && !ret)
 	{
-		if (!builtins(cmd_l, env_c, path_t))
-		{
+		ret_b = builtins(cmd_c, env_c, path_t);
+		free(cmd_c->content);
+		free(cmd_c);
+		if (!ret_b)
 			exe_cmd(str, *env_c, path_t);
-		}
 		ret = 1;
 	}
 	return (ret);
@@ -85,7 +105,6 @@ int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 {
 	t_list	*env_c;
 
-	ft_putendl("YO ENCORE MOI");
 	if (!(env_c = lstenv_cpy(env_l)))
 		return (1);
 	if (!parse(cmd_l, &env_c, path_t))

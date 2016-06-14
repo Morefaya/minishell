@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 20:38:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 12:17:55 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 17:25:00 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, char **av, char **env)
 		ft_putstr("\033[32mjcazako> \033[0m");
 		cmd_l = read_cmd();
 		minishell(cmd_l, &env_l, path_t);
-		//ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);
+		ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);
 	}
 	return (0);
 }

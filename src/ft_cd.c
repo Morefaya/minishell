@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 12:15:20 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 18:18:06 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,10 @@ int		ft_cd(t_list *lst, t_list *env_l)
 //	char	*a_pwd;
 	int		opt;
 
+	ft_putendl("MON CD");
 	opt	= 0;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
-	{
-		ft_putendl("YO CHUI LA");
 		return (1);
-	}
-
 	deal_arg(str, opt);
 	chdir(str);
 /*	pwd = get_pwd();
