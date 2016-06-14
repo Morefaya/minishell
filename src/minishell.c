@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 16:28:14 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 10:45:56 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,11 @@ static void	son_process(char *str, char **path_t, t_list *env_l)
 	exit(ret);
 }
 
-void		exe_cmd(char *cmd, t_list *env_l)
+void		exe_cmd(char *cmd, t_list *env_l, char **path_t)
 {
-	char	**path_t;
 	pid_t	pid;
 	int		i;
 
-	path_t = NULL;
-	if (!(path_t = get_paths_vars(env_l)))
-		return ;
 	if (!(pid = fork()))
 		son_process(cmd, path_t, env_l);
 	else if (pid > 0)
@@ -77,15 +73,14 @@ void		exe_cmd(char *cmd, t_list *env_l)
 		signal(SIGINT, SIG_IGN);
 		wait(&i);
 	}
-	free_tab2d(path_t);
 }
 
-int			minishell(t_list *cmd_l, t_list **env_l)
+int			minishell(t_list *cmd_l, t_list **env_l, char **path_t)
 {
 	while (cmd_l)
 	{
-		if (!builtins(cmd_l, env_l))
-			exe_cmd(((t_shell*)(cmd_l->content))->str, *env_l);
+		if (!builtins(cmd_l, env_l, path_t))
+			exe_cmd(((t_shell*)(cmd_l->content))->str, *env_l, path_t);
 		cmd_l = cmd_l->next;
 	}
 	return (0);

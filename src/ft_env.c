@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 16:20:02 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 11:57:41 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static int	setting(char *str, t_list **env_c)
 	return (i);
 }
 
-static int	parse(char *str, t_list **env_c)
+static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
 {
-	char	*tmp;
 	int		ret;
+	char	*str;
 
-	tmp = NULL;
+	str = ((t_shell*)(cmd_l->content))->str;
 	ret = 0;
 	while (*str && !ft_check_charset(*str, " \t\n"))
 		str++;
@@ -69,21 +69,26 @@ static int	parse(char *str, t_list **env_c)
 		else
 			break ;
 	}
+	((t_shell*)(cmd_l->content))->str = str;
 	if (*str && !ret)
 	{
-		exe_cmd(str, *env_c);
+		if (!builtins(cmd_l, env_c, path_t))
+		{
+			exe_cmd(str, *env_c, path_t);
+		}
 		ret = 1;
 	}
 	return (ret);
 }
 
-int			ft_env(t_list *cmd_l, t_list *env_l)
+int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 {
 	t_list	*env_c;
 
+	ft_putendl("YO ENCORE MOI");
 	if (!(env_c = lstenv_cpy(env_l)))
 		return (1);
-	if (!parse(((t_shell*)(cmd_l->content))->str, &env_c))
+	if (!parse(cmd_l, &env_c, path_t))
 		print_lst(env_c);
 	return (1);
 }

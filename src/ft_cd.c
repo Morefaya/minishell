@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/12 16:31:04 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 12:15:20 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static char	*cd_arg(char *str, int *opt)
 		free_tab2d(cd_split);
 		return (NULL);
 	}
-	else if (nb_arg > 2)
+	if (nb_arg > 2)
 	{
 		ft_putendl("cd: too many arguments");
 		free_tab2d(cd_split);
 		return (NULL);
 	}
+	if (!cd_split[i])
+		return (ft_strdup("\0"));
 	return (cd_split[i]);
 }
 
@@ -62,7 +64,7 @@ static char	*deal_arg(char *str, int opt)
 {
 	struct stat	f_stat;
 
-	if (!ft_strcmp(str, "."))
+	if (!ft_strcmp(str, ".") || !ft_strcmp(str, "\0"))
 		return (get_pwd());
 	else if (!ft_strcmp(str, ".."))
 		return (get_a_pwd());
@@ -104,7 +106,10 @@ int		ft_cd(t_list *lst, t_list *env_l)
 
 	opt	= 0;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
+	{
+		ft_putendl("YO CHUI LA");
 		return (1);
+	}
 
 	deal_arg(str, opt);
 	chdir(str);
