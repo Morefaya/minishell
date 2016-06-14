@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 18:18:06 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/14 21:07:55 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ static char	*deal_arg(char *str, int opt)
 {
 	struct stat	f_stat;
 
-	if (!ft_strcmp(str, ".") || !ft_strcmp(str, "\0"))
+	/*if (!ft_strcmp(str, ".") || !ft_strcmp(str, "\0"))
 		return (get_pwd());
 	else if (!ft_strcmp(str, ".."))
-		return (get_a_pwd());
+		return (get_a_pwd());*/
 	if (access(str, F_OK))
 	{
 		ft_putstr("cd: no such file or directory: ");
@@ -103,13 +103,29 @@ int		ft_cd(t_list *lst, t_list *env_l)
 //	char	*pwd;
 //	char	*a_pwd;
 	int		opt;
+	char	*home_var;
 
-	ft_putendl("MON CD");
 	opt	= 0;
+	home_var = NULL;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
 		return (1);
+	if (!(ft_strcmp(str, "\0") || !(ft_strcmp(str, "~"))))
+	{
+		if (!(home_var = get_var_env("HOME", env_l)))
+		{
+			ft_putendl("/usr/bin/cd: line 4: cd: HOME not set");
+			return (1);
+		}
+		else
+		{
+			free(str);
+			str = home_var;
+		}
+	}
+	ft_putendl("YO C MOI");
 	deal_arg(str, opt);
-	chdir(str);
+	if (chdir(str))
+		return (1);
 /*	pwd = get_pwd();
 	a_pwd = get_a_pwd();
 	ft_putendl(pwd);
@@ -121,10 +137,6 @@ int		ft_cd(t_list *lst, t_list *env_l)
 	ft_putendl(pwd);
 	ft_putendl(a_pwd);*/
 
-
-
-	env_l++;
-	opt++;
 
 	/*if ((ret = tablen(cd_split)) == 3)
 	{
