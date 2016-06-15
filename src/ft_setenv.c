@@ -76,7 +76,7 @@ static char	*gt_arg(char *str)
 	return (s_env);
 }
 
-void		set_env(char *str, t_list **env_l)
+void		set_env(char *str, t_list **env_l, int cd)
 {
 	t_list	*new;
 	t_shell	content;
@@ -84,7 +84,8 @@ void		set_env(char *str, t_list **env_l)
 	content.str = str;
 	if (check_env_name(content.str, *env_l))
 	{
-		print_lst(*env_l);
+		if (!cd)
+			print_lst(*env_l);
 		return ;
 	}
 	if (!(new = ft_lstnew(&content, sizeof(content))))
@@ -95,7 +96,7 @@ void		set_env(char *str, t_list **env_l)
 	ft_lstadd_back(*env_l, new);
 }
 
-int			ft_setenv(t_list *cmd_l, t_list **env_l)
+int			ft_setenv(t_list *cmd_l, t_list **env_l, int cd)
 {
 	char	*str;
 
@@ -103,7 +104,8 @@ int			ft_setenv(t_list *cmd_l, t_list **env_l)
 		return (1);
 	else if (!(str = gt_arg(((t_shell*)(cmd_l->content))->str)))
 		return (1);
-	set_env(str, env_l);
-	print_lst(*env_l);
+	set_env(str, env_l, cd);
+	if (!cd)
+		print_lst(*env_l);
 	return (1);
 }

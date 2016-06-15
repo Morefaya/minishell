@@ -44,7 +44,7 @@ static int	setting(char *str, t_list **env_c)
 		i++;
 	if (!(set_var = ft_strsub(str, 0, i)))
 		return (0);
-	set_env(set_var, env_c);
+	set_env(set_var, env_c, 0);
 	free(set_var);
 	return (i);
 }

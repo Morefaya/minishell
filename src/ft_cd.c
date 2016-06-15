@@ -60,14 +60,10 @@ static char	*cd_arg(char *str, int *opt)
 	return (cd_split[i]);
 }
 
-static char	*deal_arg(char *str, int opt)
+static char	*deal_arg(char *str)
 {
 	struct stat	f_stat;
 
-	/*if (!ft_strcmp(str, ".") || !ft_strcmp(str, "\0"))
-		return (get_pwd());
-	else if (!ft_strcmp(str, ".."))
-		return (get_a_pwd());*/
 	if (access(str, F_OK))
 	{
 		ft_putstr("cd: no such file or directory: ");
@@ -75,35 +71,25 @@ static char	*deal_arg(char *str, int opt)
 		return (NULL);
 	}
 	if (lstat(str, &f_stat) == -1)
-	{
-		ft_putendl("error lstat");
 		return (NULL);
-	}
-	
 	if (access(str, X_OK))
 	{
 		ft_putstr("cd: permission denied");
 		ft_putendl(str);
 		return (NULL);
 	}
-	opt++;
 	return (str);
 }
 
-int		ft_cd(t_list *lst, t_list *env_l)
+int		ft_cd(t_list *lst, t_list **env_l)
 {
-
-	/*char		pwd[256];
-	char		path[] = "./src";
-	struct stat	buff;
-	int			(*f)(const char *, struct stat *);
-	int			opt;
-	int			ret;*/
 	char	*str;
-//	char	*pwd;
-//	char	*a_pwd;
-	int		opt;
+	int	opt;
 	char	*home_var;
+	char	*owd;
+	t_shell	content;
+	t_list	*cmd_pwd;
+	char	*path;
 
 	opt	= 0;
 	home_var = NULL;
@@ -111,7 +97,7 @@ int		ft_cd(t_list *lst, t_list *env_l)
 		return (1);
 	if (!(ft_strcmp(str, "\0") || !(ft_strcmp(str, "~"))))
 	{
-		if (!(home_var = get_var_env("HOME", env_l)))
+		if (!(home_var = get_var_env("HOME", *env_l)))
 		{
 			ft_putendl("/usr/bin/cd: line 4: cd: HOME not set");
 			return (1);
@@ -122,60 +108,37 @@ int		ft_cd(t_list *lst, t_list *env_l)
 			str = home_var;
 		}
 	}
-	ft_putendl("YO C MOI");
-	deal_arg(str, opt);
-	if (chdir(str))
+	deal_arg(str);
+	if (!(owd = get_pwd()))
 		return (1);
-/*	pwd = get_pwd();
-	a_pwd = get_a_pwd();
-	ft_putendl(pwd);
-	ft_putendl(a_pwd);
-
-
-	pwd = get_pwd();
-	a_pwd = get_a_pwd();
-	ft_putendl(pwd);
-	ft_putendl(a_pwd);*/
-
-
-	/*if ((ret = tablen(cd_split)) == 3)
+	if (!(path = ft_strjoin(ft_strjoin(owd, "/"), str)))
+		return (1);
+	ft_putendl(path);
+	if (chdir(path))
 	{
-		ft_putstr("cd: string not in pwd: ");
-		ft_putendl(cd_split[1]);
+		free(str);
+		return (1);
 	}
-	else if (ret > 3)
-		ft_putendl("cd: too many arguments");
-	free_tab2d(cd_split);
-
-
-
-	str = ((t_shell*)(lst->content))->str;
-	str += 3;
-
-	ft_putnbr(opt = check_opt(&str));
-	ft_putchar('\n');
-
-	getcwd(pwd, 256);
-	ft_putendl(((t_shell*)(lst->content))->str);
-	ft_putendl(pwd);
-	opt = 1;
-	f = (opt) ? stat : lstat;
-	if (!access(path, F_OK) && !access(path, R_OK | X_OK))
+	if (!(content.str = ft_strjoin("setenv OLDPWD=", owd)))
 	{
-		ft_putendl("ACCESS");
-		if (stat(path, &buff) != -1)
-		{
-			ft_putendl("STAT");
-			if (((buff.st_mode) & S_IFMT) == S_IFDIR)
-			{
-				ft_putendl("ISDIR");
-				chdir(path);
-			}
-		}
+		free(owd);
+		return (1);
 	}
-	getcwd(pwd, 256);
-	ft_putendl(pwd);
-	lst = lst->next;
-	env_l = env_l->next;*/
+	free(owd);
+	if (!(owd = get_pwd()))
+		return (1);
+	ft_putendl(owd);
+	if (!(cmd_pwd = ft_lstnew(&content, sizeof(content))))
+		return (1);
+	ft_setenv(cmd_pwd, env_l, 1);
+	free(((t_shell*)(cmd_pwd->content))->str);
+	if (!(((t_shell*)(cmd_pwd->content))->str = ft_strjoin("setenv PWD=", owd)))
+	{
+		free(owd);
+		return (1);
+	}
+	free(owd);
+	ft_setenv(cmd_pwd, env_l, 1);
+	ft_lstdelone(&cmd_pwd, (void(*)(void*, size_t))del_content);
 	return (1);
 }
