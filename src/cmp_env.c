@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab2d_lst.c                                        :+:      :+:    :+:   */
+/*   cmp_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/09 15:18:57 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/16 19:01:37 by jcazako          ###   ########.fr       */
+/*   Created: 2016/06/16 21:02:14 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/16 22:03:18 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**tab2d_lst(t_list *lst)
+char    *gt_env_var(char *str)
 {
-	int		nb_el;
-	char	**tab;
-	int		i;
+	int     i;
+	char    *env_v;
 
-	nb_el = 0;
-	tab = NULL;
+	env_v = NULL;
 	i = 0;
-	nb_el = ft_lstcount(lst);
-	if (!(tab = (char**)malloc(sizeof(*tab) * nb_el + 1)))
-		return (NULL);
-	while (i < nb_el + 1)
-		tab[i++] = NULL;
-	i = 0;
-	while (lst)
-	{
-		if (!(tab[i] = ft_strdup(((t_shell*)(lst->content))->str)))
-		{
-			free_tab2d(tab);
-			return (NULL);
-		}
+	while (str[i] && !ft_check_charset(str[i], " =\t\n"))
 		i++;
-		lst = lst->next;
-	}
-	return (tab);
+	if (!(env_v = ft_strsub(str, 0, i)))
+		return (NULL);
+	return (env_v);
+}
+
+int		cmp_env(char *str1, char *str2)
+{
+	char	*tmp;
+	int		ret;
+
+	ret = 0;
+	if (!str1 || !str2)
+		return (0);
+	if (!(tmp = gt_env_var(str1)))
+		return (0);
+	if (ft_strcmp(tmp, str2))
+		ret = 1;
+	free(tmp);
+	return (0);
 }

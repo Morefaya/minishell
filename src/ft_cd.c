@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 21:07:55 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/16 20:53:37 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,22 @@ static char	*deal_arg(char *str)
 	return (str);
 }
 
-int		ft_cd(t_list *lst, t_list **env_l)
+char		*check_cd(t_list *lst, t_list **env_l)
 {
 	char	*str;
-	int	opt;
+	int		opt;
 	char	*home_var;
-	char	*owd;
-	t_shell	content;
-	t_list	*cmd_pwd;
-	char	*path;
 
-	opt	= 0;
-	home_var = NULL;
+	opt = 0;
+	str = NULL;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
-		return (1);
+		return (NULL);
 	if (!(ft_strcmp(str, "\0") || !(ft_strcmp(str, "~"))))
 	{
 		if (!(home_var = get_var_env("HOME", *env_l)))
 		{
 			ft_putendl("/usr/bin/cd: line 4: cd: HOME not set");
-			return (1);
+			return (NULL);
 		}
 		else
 		{
@@ -108,37 +104,31 @@ int		ft_cd(t_list *lst, t_list **env_l)
 			str = home_var;
 		}
 	}
-	deal_arg(str);
-	if (!(owd = get_pwd()))
+	return (str);
+}
+
+int			ft_cd(t_list *lst, t_list **env_l)
+{
+	char	*str;
+	char	*owd;
+	char	*awd;
+
+	if (!(str = check_cd(lst, env_l)))
 		return (1);
-	if (!(path = ft_strjoin(ft_strjoin(owd, "/"), str)))
+	if (!deal_arg(str))
 		return (1);
-	ft_putendl(path);
-	if (chdir(path))
+	if (!(owd = chdir_cd(str)))
+		return (1);
+	if (!(awd = get_pwd()))
+		return (1);
+	if ((cd_set(owd, awd, "setenv OLDPWD=", env_l))
+		|| (cd_set(owd, awd, "setenv PWD=", env_l)))
 	{
 		free(str);
 		return (1);
 	}
-	if (!(content.str = ft_strjoin("setenv OLDPWD=", owd)))
-	{
-		free(owd);
-		return (1);
-	}
 	free(owd);
-	if (!(owd = get_pwd()))
-		return (1);
-	ft_putendl(owd);
-	if (!(cmd_pwd = ft_lstnew(&content, sizeof(content))))
-		return (1);
-	ft_setenv(cmd_pwd, env_l, 1);
-	free(((t_shell*)(cmd_pwd->content))->str);
-	if (!(((t_shell*)(cmd_pwd->content))->str = ft_strjoin("setenv PWD=", owd)))
-	{
-		free(owd);
-		return (1);
-	}
-	free(owd);
-	ft_setenv(cmd_pwd, env_l, 1);
-	ft_lstdelone(&cmd_pwd, (void(*)(void*, size_t))del_content);
+	free(awd);
+	free(str);
 	return (1);
 }

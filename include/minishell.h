@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 20:53:17 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/16 21:24:38 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,8 @@ int				tablen(char **tab);
 char			*get_a_pwd(void);
 char			*get_pwd(void);
 char			*get_var_env(char *env_var, t_list *env_l);
+char			*chdir_cd(char *str);
+int				cd_set(char *owd, char *awd, char *cmd, t_list **env_l);
+int				cmp_env(char *str1, char *str2);
+char			*gt_env_var(char *str);
 #endif

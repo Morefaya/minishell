@@ -3,7 +3,8 @@ CFLAG = -Wall -Wextra -Werror
 SRC = main.c lst_tab2d.c print_lst.c read_cmd.c print_tab2d.c free_tab2d.c \
 builtins.c get_paths_vars.c get_arg.c get_cmd.c make_cmd_path.c \
 minishell.c tab2d_lst.c ft_unsetenv.c ft_setenv.c ft_env.c ft_env_2.c lstenv_cpy.c \
-tool.c ft_exit.c ft_cd.c tablen.c get_a_pwd.c get_pwd.c get_var_env.c
+tool.c ft_exit.c ft_cd.c tablen.c get_a_pwd.c get_pwd.c get_var_env.c ft_cd_2.c \
+cmp_env.c
 SRC_DIR = ./src
 SRC_C = $(patsubst %, $(SRC_DIR)/%, $(SRC))
 OBJ = $(SRC:.c=.o)
@@ -30,7 +31,7 @@ $(NAME): $(OBJ_DIR) $(OBJ_O)
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) -c $< -o $@ -I $(HDIR) $(CFLAG)
 
 clean:

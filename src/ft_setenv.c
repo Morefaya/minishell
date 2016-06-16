@@ -6,52 +6,48 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 17:38:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/11 16:24:59 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/16 21:54:51 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*gt_env_var(char *str)
+static int	ret_check(int ret, t_list *env_l, char *str)
 {
-	int		i;
-	char	*env_v;
+	char	*tmp;
 
-	env_v = NULL;
-	i = 0;
-	while (str[i] && !ft_check_charset(str[i], " =\t\n"))
-		i++;
-	if (!(env_v = ft_strsub(str, 0, i)))
-		return (NULL);
-	return (env_v);
+	if (ret)
+	{
+		tmp = ((t_shell*)(env_l->content))->str;
+		((t_shell*)(env_l->content))->str = str;
+		free(tmp);
+	}
+	return (ret);
 }
 
 static int	check_env_name(char *str, t_list *env_l)
 {
 	int		ret;
 	char	*u_env;
-	char	*tmp;
+	int		len;
+	char	*box;
 
 	ret = 0;
 	if (!(u_env = gt_env_var(str)))
 		return (0);
+	len = ft_strlen(u_env);
 	while (env_l)
 	{
-		if (ft_strnstr(((t_shell*)(env_l->content))->str,
-			u_env, ft_strlen(u_env)))
+		box = ((t_shell*)(env_l->content))->str;
+		if (ft_strnstr(box, u_env, len))
 		{
 			ret = 1;
 			break ;
 		}
 		env_l = env_l->next;
 	}
-	if (ret)
-	{
-		tmp = ((t_shell*)(env_l->content))->str;
-		((t_shell*)(env_l->content))->str = str;
-		free(u_env);
-	}
-	return (ret);
+	free(u_env);
+	return (ret_check(ret, env_l, str));
 }
 
 static char	*gt_arg(char *str)
