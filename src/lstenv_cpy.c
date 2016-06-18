@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define T_SHELL ((t_shell*)(env->content))->str
 
 t_list	*lstenv_cpy(t_list *env)
 {
 	t_list	*env_tmp;
 	t_list	*env_cpy;
+	t_shell	content;
 
 	env_tmp = NULL;
 	env_cpy = NULL;
@@ -23,13 +25,13 @@ t_list	*lstenv_cpy(t_list *env)
 	{
 		if (!env_cpy)
 		{
-			if (!(env_cpy = ft_lstnew(env->content, env->content_size)))
-				return (NULL);
+			content.str = ft_strdup(T_SHELL);
+			env_cpy = ft_lstnew(&content, sizeof(content));
 		}
 		else
 		{
-			if (!(env_tmp = ft_lstnew(env->content, env->content_size)))
-				return (NULL);
+			content.str = ft_strdup(T_SHELL);
+			env_tmp = ft_lstnew(&content, sizeof(content));
 			ft_lstadd_back(env_cpy, env_tmp);
 		}
 		env = env->next;

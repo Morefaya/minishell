@@ -28,6 +28,12 @@ static char	*gt_env_name(char *str)
 		i++;
 	if (!(tmp = ft_strsub(str, 0, i)))
 		return (NULL);
+	if (ft_strchr(tmp, '='))
+	{
+		unsetenv_format();
+		free(tmp);
+		return (NULL);
+	}
 	if (!(u_env = ft_strjoin(tmp, "=")))
 	{
 		free(tmp);
@@ -65,7 +71,7 @@ void		del_linkenv(char *u_env, t_list **env_l)
 	}
 }
 
-int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
+int			ft_unsetenv(t_list *cmd_l, t_list **env_l, int print)
 {
 	char	*u_env;
 
@@ -73,6 +79,7 @@ int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
 		return (1);
 	if (u_env)
 		del_linkenv(u_env, env_l);
-	print_lst(*env_l);
+	if (print)
+		print_lst(*env_l);
 	return (1);
 }

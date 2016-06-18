@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	check_opt(char **str, t_list **env_c)
+/*static int	check_opt(char **str, t_list **env_c)
 {
 	(*str)++;
 	if (**str == 'u')
@@ -44,6 +44,8 @@ static int	setting(char *str, t_list **env_c)
 		i++;
 	if (!(set_var = ft_strsub(str, 0, i)))
 		return (0);
+	ft_putendl(set_var);
+	ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	set_env(set_var, env_c, 0);
 	free(set_var);
 	return (i);
@@ -99,15 +101,16 @@ static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
 		ret = 1;
 	}
 	return (ret);
-}
+}*/
 
 int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 {
-	t_list	*env_c;
+	/*t_list	*env_c;
 
 	if (!(env_c = lstenv_cpy(env_l)))
 		return (1);
 	if (!parse(cmd_l, &env_c, path_t))
-		print_lst(env_c);
+		print_lst(env_c);*/
+	rt_env(cmd_l, env_l, path_t);
 	return (1);
 }

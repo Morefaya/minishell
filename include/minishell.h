@@ -40,8 +40,8 @@ int				minishell(t_list *cmd_l, t_list **env_l, char **path_t);
 t_list			*lstenv_cpy(t_list *env);
 void			putillegal_opt_env(char a);
 void			delete_env(char **m, t_list **env_c);
-int				ft_unsetenv(t_list *cmd_l, t_list **env_l);
-int				check_arg(char *str);
+int			ft_unsetenv(t_list *cmd_l, t_list **env_l, int print);
+int			check_arg(char *str);
 void			del_linkenv(char *u_env, t_list **env_l);
 int				ft_setenv(t_list *cmd_l, t_list **env_l, int cd);
 int				ft_env(t_list *cmd_l, t_list *env_l, char **path_t);
@@ -61,4 +61,5 @@ char			*chdir_cd(char *str);
 int				cd_set(char *owd, char *awd, char *cmd, t_list **env_l);
 int				cmp_env(char *str1, char *str2);
 char			*gt_env_var(char *str);
+int			rt_env(t_list *cmd_l, t_list *env_l, char **path_t);
 #endif
