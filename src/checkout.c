@@ -48,13 +48,35 @@ static void	add_all(t_list **first_l, t_list *env_c)
 		return ;
 	while (env_c)
 	{
-		content.str = trim_name(((t_shell*)(tmp->content))->str);
+		content.str = trim_name(((t_shell*)(env_c->content))->str);
 		if (!(tmp = ft_lstnew(&content, sizeof(content))))
 			return ;
 		ft_lstadd(first_l, tmp);
 		env_c = env_c->next;
 	}
 }
+
+/*static t_list	*deal_u(char **arg, int *i, t_list **first_l)
+{
+	t_shell	content;
+	t_list	*unset_l;
+
+	unset_l = NULL;
+	if (!(content.str = check_u(arg[++(*i)])))
+	{
+		ft_putendl("env: option requires an argument -- u");
+		ft_lstdel(first_l, (void(*)(void*, size_t))del_content);
+		return (NULL);
+	}
+	if (!(unset_l = ft_lstnew(&content, sizeof(content))))
+	{
+		free(content.str);
+		return (NULL);
+	}
+	ft_lstadd(first_l, unset_l);
+	return (unset_l);
+}*/
+
 
 t_list	*checkout(char **arg, int *i, t_list *env_c)
 {
@@ -84,10 +106,13 @@ t_list	*checkout(char **arg, int *i, t_list *env_c)
 					return (NULL);
 				}
 				ft_lstadd(&first_l, unset_l);
+				//return (deal_u(arg, i, &first_l));
 			}
 		}
 		else if (arg[*i][1] == 'i')
+		{
 			add_all(&first_l, env_c);
+		}
 		else
 		{
 			putillegal_opt_env(arg[*i][1]);
