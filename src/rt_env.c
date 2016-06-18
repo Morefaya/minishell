@@ -1,5 +1,35 @@
 #include "minishell.h"
 
+/*static t_list	*checkout(char **arg, int *i)
+{
+	t_list	*unset_l;
+	t_list	*first_l;
+	t_shell	content;
+
+	unset_l = NULL;
+	first_l = NULL;
+	while (arg[*i])
+	{
+		if (arg[*i][0] != '-')
+			break ;
+		if (arg[*i][1] == 'u')
+		{
+			if (!(content.str = check_u(arg[*i])))
+			{
+				if (!(content.str = check_u(arg[++(*i)])))
+				{
+					ft_putendl("env: option requires an argument -- u");
+					//del
+					return (NULL);
+				}
+			}
+			
+		}
+
+		(*i)++;
+	}
+}*/
+/*
 static char	*check_option(char *str, t_list **env_c, int *illegal)
 {
 	int	len;
@@ -26,7 +56,7 @@ static char	*check_option(char *str, t_list **env_c, int *illegal)
 	return (NULL);
 }
 
-static void	unset_it(char *arg, t_list **env_c, int print)
+static void	unset_it(char *arg, t_list **env_c)
 {
 	t_shell	content;
 	t_list	*cmd;
@@ -37,11 +67,11 @@ static void	unset_it(char *arg, t_list **env_c, int print)
 	content.str = str;
 	if (!(cmd = ft_lstnew(&content, sizeof(content))))
 		return ;
-	ft_unsetenv(cmd, env_c, print);
+	ft_unsetenv(cmd, env_c);
 	ft_lstdelone(&cmd, (void(*)(void*, size_t))del_content);
 }
 
-static void	set_it(char *arg, t_list **env_c, int print)
+static void	set_it(char *arg, t_list **env_c)
 {
 	t_shell	content;
 	t_list	*cmd;
@@ -52,7 +82,7 @@ static void	set_it(char *arg, t_list **env_c, int print)
 	content.str = str;
 	if (!(cmd = ft_lstnew(&content, sizeof(content))))
 		return ;
-	ft_setenv(cmd, env_c, print);
+	ft_setenv(cmd, env_c);
 	ft_lstdelone(&cmd, (void(*)(void*, size_t))del_content);
 }
 
@@ -64,14 +94,20 @@ static void	execute(char **cmd, t_list **env_c, char **path_t)
 	content.str = ft_strdup(*cmd);
 	cmd_c = ft_lstnew(&content, sizeof(content));
 	if (builtins())
-	
-}
+	while (*cmd)
+	{
+		ft_putendl(*cmd);
+		cmd++;
+	}
+	env_c++;
+	path_t++;
+}*/
 
 int		rt_env(t_list *cmd_l, t_list *env_l, char **path_t)
 {
 	t_list	*env_c;
 	char	**arg;
-	char	*unset;
+	//char	*unset;
 	int	i;
 	int	illegal;
 
@@ -91,16 +127,17 @@ int		rt_env(t_list *cmd_l, t_list *env_l, char **path_t)
 		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 		return (1);
 	}
-	if ((unset = check_option(arg[i], &env_c, &illegal)))
+	checkout(arg, &i, env_c);
+	/*if ((unset = check_option(arg[i], &env_c, &illegal)))
 	{
 		if (!*unset)
 		{
 			i++;
 			if (arg[i])
-				unset_it(arg[i], &env_c, 0);
+				unset_it(arg[i], &env_c);
 		}
 		else
-			unset_it(unset, &env_c, 0);
+			unset_it(unset, &env_c);
 	}
 	if (illegal)
 	{
@@ -108,17 +145,17 @@ int		rt_env(t_list *cmd_l, t_list *env_l, char **path_t)
 		free_tab2d(arg);
 		return (1);
 	}
-	i++;
+	i = (unset) ? ++i : i;
 	while (arg[i])
 	{
 		if (!ft_strchr(arg[i], '='))
 			break ;
-		set_it(arg[i], &env_c, 0);
+		set_it(arg[i], &env_c);
 		i++;
 	}
 	if (arg[i])
 		execute(arg + i, &env_c, path_t);
-	print_lst(env_c);
+	print_lst(env_c);*/
 	ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 	path_t++;
 	return (1);

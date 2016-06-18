@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/16 20:47:00 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/16 20:51:29 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/18 10:11:31 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int			cd_set(char *owd, char *awd, char *cmd, t_list **env_l)
 	}
 	if (!(cmd_pwd = ft_lstnew(&content, sizeof(content))))
 		return (1);
-	ft_setenv(cmd_pwd, env_l, 1);
+	ft_setenv(cmd_pwd, env_l);
 	return (0);
 }

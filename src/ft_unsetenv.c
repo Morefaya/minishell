@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 13:41:09 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/10 20:20:44 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/18 10:04:07 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		del_linkenv(char *u_env, t_list **env_l)
 	}
 }
 
-int			ft_unsetenv(t_list *cmd_l, t_list **env_l, int print)
+int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
 {
 	char	*u_env;
 
@@ -79,7 +79,7 @@ int			ft_unsetenv(t_list *cmd_l, t_list **env_l, int print)
 		return (1);
 	if (u_env)
 		del_linkenv(u_env, env_l);
-	if (print)
-		print_lst(*env_l);
+/*	if (print)
+		print_lst(*env_l);*/
 	return (1);
 }
