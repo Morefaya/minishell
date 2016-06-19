@@ -30,16 +30,17 @@ static int	check_env_name(char *str, t_list *env_l)
 	int		ret;
 	char	*u_env;
 	int		len;
-	char	*box;
+	char	*tmp;
 
 	ret = 0;
 	if (!(u_env = gt_env_var(str)))
 		return (0);
-	len = ft_strlen(u_env);
+	if (!(tmp = ft_strjoin(u_env, "=")))
+		return (0);
+	len = ft_strlen(tmp);
 	while (env_l)
 	{
-		box = ((t_shell*)(env_l->content))->str;
-		if (ft_strnstr(box, u_env, len))
+		if (!ft_strncmp(tmp, ((t_shell*)(env_l->content))->str, len))
 		{
 			ret = 1;
 			break ;
@@ -47,6 +48,7 @@ static int	check_env_name(char *str, t_list *env_l)
 		env_l = env_l->next;
 	}
 	free(u_env);
+	free(tmp);
 	return (ret_check(ret, env_l, str));
 }
 
@@ -79,17 +81,16 @@ void		set_env(char *str, t_list **env_l)
 
 	content.str = str;
 	if (check_env_name(content.str, *env_l))
-	{
-		/*if (!cd)
-			print_lst(*env_l);*/
 		return ;
-	}
 	if (!(new = ft_lstnew(&content, sizeof(content))))
 	{
 		free(str);
 		return ;
 	}
-	ft_lstadd_back(*env_l, new);
+	if (*env_l)
+		ft_lstadd_back(*env_l, new);
+	else
+		ft_lstadd(env_l, new);
 }
 
 int			ft_setenv(t_list *cmd_l, t_list **env_l)
@@ -101,7 +102,5 @@ int			ft_setenv(t_list *cmd_l, t_list **env_l)
 	else if (!(str = gt_arg(((t_shell*)(cmd_l->content))->str)))
 		return (1);
 	set_env(str, env_l);
-	/*if (!cd)
-		print_lst(*env_l);*/
 	return (1);
 }

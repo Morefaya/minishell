@@ -33,5 +33,7 @@ int	main(int ac, char **av, char **env)
 		minishell(cmd_l, &env_l, path_t);
 		ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);
 	}
+	free(path_t);
+	ft_lstdel(&env_l, (void(*)(void*, size_t))del_content);
 	return (0);
 }

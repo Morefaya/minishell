@@ -79,7 +79,5 @@ int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
 		return (1);
 	if (u_env)
 		del_linkenv(u_env, env_l);
-/*	if (print)
-		print_lst(*env_l);*/
 	return (1);
 }
