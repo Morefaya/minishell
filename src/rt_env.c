@@ -19,10 +19,15 @@ static void	execute(char **cmd, t_list **env_c, char **path_t)
 {
 	char	*str;
 	int	i;
+	int	j;
 	int	len;
+	t_shell content;
+	t_list	*cmd_l;
 
 	i = 0;
+	j = 0;
 	len = 0;
+	cmd_l = NULL;
 	if (!cmd)
 		return ;
 	while (cmd[i])
@@ -32,18 +37,17 @@ static void	execute(char **cmd, t_list **env_c, char **path_t)
 	}
 	if (!(str = ft_strnew(len + i)))
 		return ;
-	/*i = 0;
-	while (cmd[i])
+	while (cmd[j])
 	{
-		j = 0;
-		while (cmd[i][j])
-		{
-			str[] = cmd[i][j];
-			j++;
-		}
-		i++;
-	}*/
-	
+		ft_strcat(str, cmd[j]);
+		if (j != i + 1)
+			str[ft_strlen(str)] = ' ';
+		j++;
+	}
+	content.str = str;
+	if (!(cmd_l = ft_lstnew(&content, sizeof(content))))
+		return ;
+	minishell(cmd_l, env_c, path_t);
 }
 
 static int	unset_it(t_list *unset, t_list **env_c)
@@ -89,8 +93,7 @@ int		rt_env(t_list *cmd_l, t_list *env_l, char **path_t)
 		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 		return (1);
 	}
-	if (!(unset = checkout(arg, &i, env_c)))
-		return (1);
+	unset = checkout(arg, &i, env_c);
 	if (!(unset_it(unset, &env_c)))
 		return (1);
 	while (arg[i])
@@ -100,11 +103,11 @@ int		rt_env(t_list *cmd_l, t_list *env_l, char **path_t)
 		set_it(arg[i], &env_c);
 		i++;
 	}
-	/*if (arg[i])
-		execute(arg + i, &env_c, path_t);*/
-	print_lst(env_c);
+	if (arg[i])
+		execute(arg + i, &env_c, path_t);
+	else
+		print_lst(env_c);
 	free_tab2d(arg);
 	ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
-	path_t++;
 	return (1);
 }
