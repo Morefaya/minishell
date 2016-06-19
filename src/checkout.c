@@ -58,7 +58,7 @@ static void	add_all(t_list **first_l, t_list *env_c)
 	}
 }
 
-static t_list	*deal_u(char **arg, int *i, t_list **first_l)
+static t_list	*deal_u(char **arg, int *i, t_list **first_l, int *illegal)
 {
 	t_shell	content;
 	t_list	*unset_l;
@@ -67,6 +67,7 @@ static t_list	*deal_u(char **arg, int *i, t_list **first_l)
 	if (!(content.str = check_u(arg[++(*i)])))
 	{
 		ft_putendl("env: option requires an argument -- u");
+		*illegal = 1;
 		ft_lstdel(first_l, (void(*)(void*, size_t))del_content);
 		return (NULL);
 	}
@@ -79,7 +80,7 @@ static t_list	*deal_u(char **arg, int *i, t_list **first_l)
 	return (unset_l);
 }
 
-static t_list	*stack_u(char **arg, int *i, t_list **first_l)
+static t_list	*stack_u(char **arg, int *i, t_list **first_l, int *illegal)
 {
 	t_shell	content;
 	t_list	*unset;
@@ -87,7 +88,7 @@ static t_list	*stack_u(char **arg, int *i, t_list **first_l)
 	unset = NULL;
 	if (!(content.str = check_u(arg[*i] + 2)))
 	{
-		if (!deal_u(arg, i, first_l))
+		if (!deal_u(arg, i, first_l, illegal))
 			return (NULL);
 	}
 	else
@@ -99,12 +100,10 @@ static t_list	*stack_u(char **arg, int *i, t_list **first_l)
 	return (*first_l);
 }
 
-t_list	*checkout(char **arg, int *i, t_list *env_c)
+t_list	*checkout(char **arg, int *i, t_list *env_c, int *illegal)
 {
-	t_list	*unset;
 	t_list	*first_l;
 
-	unset = NULL;
 	first_l = NULL;
 	while (arg[*i])
 	{
@@ -112,7 +111,7 @@ t_list	*checkout(char **arg, int *i, t_list *env_c)
 			break ;
 		if (arg[*i][1] == 'u')
 		{
-			if (!stack_u(arg, i, &first_l))
+			if (!stack_u(arg, i, &first_l, illegal))
 				return (NULL);
 		}
 		else if (arg[*i][1] == 'i')

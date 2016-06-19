@@ -77,8 +77,10 @@ int		ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 	char	**arg;
 	t_list	*unset;
 	int	i;
+	int	illegal;
 
 	i = 1;
+	illegal = 0;
 	if (!(env_c = lstenv_cpy(env_l)))
 		return (1);
 	if (!(arg = ft_strstr_split(((t_shell*)(cmd_l->content))->str, " \t\n")))
@@ -93,7 +95,7 @@ int		ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 		return (1);
 	}
-	unset = checkout(arg, &i, env_c);
+	unset = checkout(arg, &i, env_c, &illegal);
 	if (!(unset_it(unset, &env_c)))
 		return (1);
 	while (arg[i])
@@ -105,7 +107,7 @@ int		ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 	}
 	if (arg[i])
 		execute(arg + i, &env_c, path_t);
-	else
+	else if (!illegal)
 		print_lst(env_c);
 	free_tab2d(arg);
 	ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);

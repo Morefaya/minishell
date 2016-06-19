@@ -62,5 +62,5 @@ int				cd_set(char *owd, char *awd, char *cmd, t_list **env_l);
 int				cmp_env(char *str1, char *str2);
 char			*gt_env_var(char *str);
 int				rt_env(t_list *cmd_l, t_list *env_l, char **path_t);
-t_list			*checkout(char **arg, int *i, t_list *env_c);
+t_list			*checkout(char **arg, int *i, t_list *env_c, int *illegal);
 #endif
