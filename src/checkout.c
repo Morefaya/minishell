@@ -16,6 +16,8 @@ static char	*check_u(char *str)
 {
 	char	*cpy;
 
+	if (!str)
+		return (NULL);
 	if (!*str)
 		return (NULL);
 	if (!(cpy = ft_strdup(str)))

@@ -36,7 +36,7 @@ static void	exe_file(char *str, char **arg, char **env_t, int ret)
 
 static void	son_process(char *cmd, char **path_t, t_list *env_l)
 {
-	int		ret;
+	int	ret;
 	char	*cmd_path;
 	char	**arg;
 	char	**env_t;

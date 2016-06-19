@@ -1,116 +1,113 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/04 16:12:11 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 18:22:28 by jcazako          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-/*static int	check_opt(char **str, t_list **env_c)
+static void	set_it(char *arg, t_list **env_c)
 {
-	(*str)++;
-	if (**str == 'u')
-	{
-		if (env_c)
-			unset_ft_env(str, env_c);
-	}
-	else if (**str == 'i')
-	{
-		freed_all(env_c);
-		check_opt(str, env_c);
-	}
-	else if (**str && !ft_check_charset(**str, " \t\n"))
-	{
-		putillegal_opt_env(**str);
-		(*str)++;
-		return (1);
-	}
-	return (0);
+	t_shell	content;
+	t_list	*cmd;
+	char	*str;
+
+	if (!(str = ft_strjoin("setenv ", arg)))
+		return ;
+	content.str = str;
+	if (!(cmd = ft_lstnew(&content, sizeof(content))))
+		return ;
+	ft_setenv(cmd, env_c);
+	ft_lstdelone(&cmd, (void(*)(void*, size_t))del_content);
 }
 
-static int	setting(char *str, t_list **env_c)
+static void	execute(char **cmd, t_list **env_c, char **path_t)
 {
-	char	*set_var;
-	int		i;
+	char	*str;
+	int	i;
+	int	j;
+	int	len;
+	t_shell content;
+	t_list	*cmd_l;
 
 	i = 0;
-	while (str[i] && !ft_check_charset(str[i], " \t\n"))
+	j = 0;
+	len = 0;
+	cmd_l = NULL;
+	if (!cmd)
+		return ;
+	while (cmd[i])
+	{
+		len += ft_strlen(cmd[i]);
 		i++;
-	if (!(set_var = ft_strsub(str, 0, i)))
-		return (0);
-	ft_putendl(set_var);
-	ft_putendl("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-	set_env(set_var, env_c, 0);
-	free(set_var);
-	return (i);
+	}
+	if (!(str = ft_strnew(len + i)))
+		return ;
+	while (cmd[j])
+	{
+		ft_strcat(str, cmd[j]);
+		if (j != i + 1)
+			str[ft_strlen(str)] = ' ';
+		j++;
+	}
+	content.str = str;
+	if (!(cmd_l = ft_lstnew(&content, sizeof(content))))
+		return ;
+	minishell(cmd_l, env_c, path_t);
 }
 
-static char	*parse_str(t_list *cmd_l, t_list **env_c, int *ret)
+static int	unset_it(t_list *unset, t_list **env_c)
 {
+	t_list	*cmd;
+	t_shell	content;
 	char	*str;
 
-	str = NULL;
-	if (!cmd_l)
-		return (NULL);
-	str = ((t_shell*)(cmd_l->content))->str;
-	while (*str && !ft_check_charset(*str, " \t\n"))
-		str++;
-	while (*str)
+	cmd = NULL;
+	while (unset)
 	{
-		while (*str && ft_check_charset(*str, " \t\n"))
-			str++;
-		if (*str == '-')
-			*ret = check_opt(&str, env_c);
-		else if (check_arg(str))
-			str += setting(str, env_c);
-		else
-			break ;
+		str = ((t_shell*)(unset->content))->str;
+		if (!(content.str = ft_strjoin("unsetenv ", str)))
+			return (0);
+		if (!(cmd = ft_lstnew(&content, sizeof(content))))
+			return (0);
+		ft_unsetenv(cmd, env_c);
+		ft_lstdel(&cmd, (void(*)(void*, size_t))del_content);
+		unset = unset->next;
 	}
-	return (str);
+	return (1);
 }
 
-static int	parse(t_list *cmd_l, t_list **env_c, char **path_t)
+int		ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 {
-	int		ret;
-	t_list	*cmd_c;
-	int		ret_b;
-	char	*str;
+	t_list	*env_c;
+	char	**arg;
+	t_list	*unset;
+	int	i;
 
-	cmd_c = NULL;
-	ret_b = 0;
-	ret = 0;
-	if (!(str = parse_str(cmd_l, env_c, &ret)))
-		return (0);
-	if (!(cmd_c = ft_lstnew(cmd_l->content, cmd_l->content_size)))
-		return (0);
-	if (!(((t_shell*)(cmd_c->content))->str = ft_strdup(str)))
-		return (0);
-	if (*str && !ret)
-	{
-		ret_b = builtins(cmd_c, env_c, path_t);
-		free(cmd_c->content);
-		free(cmd_c);
-		if (!ret_b)
-			exe_cmd(str, *env_c, path_t);
-		ret = 1;
-	}
-	return (ret);
-}*/
-
-int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
-{
-	/*t_list	*env_c;
-
+	i = 1;
 	if (!(env_c = lstenv_cpy(env_l)))
 		return (1);
-	if (!parse(cmd_l, &env_c, path_t))
-		print_lst(env_c);*/
-	rt_env(cmd_l, env_l, path_t);
+	if (!(arg = ft_strstr_split(((t_shell*)(cmd_l->content))->str, " \t\n")))
+	{
+		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
+		return (1);
+	}
+	if (!arg[i])
+	{
+		free_tab2d(arg);
+		print_lst(env_c);
+		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
+		return (1);
+	}
+	unset = checkout(arg, &i, env_c);
+	if (!(unset_it(unset, &env_c)))
+		return (1);
+	while (arg[i])
+	{
+		if (!ft_strchr(arg[i], '='))
+			break ;
+		set_it(arg[i], &env_c);
+		i++;
+	}
+	if (arg[i])
+		execute(arg + i, &env_c, path_t);
+	else
+		print_lst(env_c);
+	free_tab2d(arg);
+	ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 	return (1);
 }
