@@ -6,13 +6,27 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 14:10:32 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/18 10:24:36 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/20 12:45:36 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		builtins(t_list *lst, t_list **env_l, char **path_t)
+static int	built_2(t_list *lst, t_list **env_l)
+{
+	if (ft_strnstr(((t_shell*)(lst->content))->str, "exit",
+		ft_strlen("exit")))
+		return (ft_exit());
+	else if (ft_strnstr(((t_shell*)(lst->content))->str, "cd",
+		ft_strlen("cd")))
+	{
+		ft_cd(lst, env_l);
+		return (1);
+	}
+	return (0);
+}
+
+int			builtins(t_list *lst, t_list **env_l, char **path_t)
 {
 	if (ft_strnstr(((t_shell*)(lst->content))->str, "unsetenv",
 		ft_strlen("unsetenv")))
@@ -34,14 +48,6 @@ int		builtins(t_list *lst, t_list **env_l, char **path_t)
 		ft_env(lst, *env_l, path_t);
 		return (1);
 	}
-	else if (ft_strnstr(((t_shell*)(lst->content))->str, "exit",
-		ft_strlen("exit")))
-		return (ft_exit());
-	else if (ft_strnstr(((t_shell*)(lst->content))->str, "cd",
-		ft_strlen("cd")))
-	{
-		ft_cd(lst, env_l);
-		return (1);
-	}
-	return (0);
+	else
+		return (built_2(lst, env_l));
 }

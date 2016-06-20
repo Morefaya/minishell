@@ -6,28 +6,17 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 13:41:09 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/18 10:04:07 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/20 13:31:43 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*gt_env_name(char *str)
+static char	*gt_env_name_2(char *tmp)
 {
-	char	*tmp;
-	int		i;
 	char	*u_env;
 
-	i = 0;
-	while (*str && !ft_check_charset(*str, " \t\n"))
-		str++;
-	while (*str && ft_check_charset(*str, " \t\n"))
-		str++;
-	tmp = str;
-	while (tmp[i] && !ft_check_charset(tmp[i], " \t\n"))
-		i++;
-	if (!(tmp = ft_strsub(str, 0, i)))
-		return (NULL);
+	u_env = NULL;
 	if (ft_strchr(tmp, '='))
 	{
 		unsetenv_format();
@@ -41,6 +30,24 @@ static char	*gt_env_name(char *str)
 	}
 	free(tmp);
 	return (u_env);
+}
+
+static char	*gt_env_name(char *str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (*str && !ft_check_charset(*str, " \t\n"))
+		str++;
+	while (*str && ft_check_charset(*str, " \t\n"))
+		str++;
+	tmp = str;
+	while (tmp[i] && !ft_check_charset(tmp[i], " \t\n"))
+		i++;
+	if (!(tmp = ft_strsub(str, 0, i)))
+		return (NULL);
+	return (gt_env_name_2(tmp));
 }
 
 void		del_linkenv(char *u_env, t_list **env_l)

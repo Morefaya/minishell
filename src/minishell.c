@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/14 17:14:56 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/20 12:43:35 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exe_file(char *str, char **arg, char **env_t, int ret)
 
 static void	son_process(char *cmd, char **path_t, t_list *env_l)
 {
-	int	ret;
+	int		ret;
 	char	*cmd_path;
 	char	**arg;
 	char	**env_t;

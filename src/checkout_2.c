@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmp_env.c                                          :+:      :+:    :+:   */
+/*   checkout_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/16 21:02:14 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/20 12:42:41 by jcazako          ###   ########.fr       */
+/*   Created: 2016/06/20 12:46:47 by jcazako           #+#    #+#             */
+/*   Updated: 2016/06/20 12:51:22 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*gt_env_var(char *str)
+char	*check_u(char *str)
 {
-	int		i;
-	char	*env_v;
+	char	*cpy;
 
-	env_v = NULL;
-	i = 0;
-	while (str[i] && !ft_check_charset(str[i], " =\t\n"))
-		i++;
-	if (!(env_v = ft_strsub(str, 0, i)))
+	if (!str)
 		return (NULL);
-	return (env_v);
+	if (!*str)
+		return (NULL);
+	if (!(cpy = ft_strdup(str)))
+		return (NULL);
+	return (cpy);
 }
 
-int		cmp_env(char *str1, char *str2)
+char	*trim_name(char *str)
 {
 	char	*tmp;
-	int		ret;
+	int		i;
 
-	ret = 0;
-	if (!str1 || !str2)
-		return (0);
-	if (!(tmp = gt_env_var(str1)))
-		return (0);
-	if (ft_strcmp(tmp, str2))
-		ret = 1;
-	free(tmp);
-	return (0);
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i] && str[i] != '=')
+		i++;
+	if (!(tmp = ft_strsub(str, 0, i)))
+		return (NULL);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/18 13:14:31 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/20 14:22:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ char			*chdir_cd(char *str);
 int				cd_set(char *owd, char *awd, char *cmd, t_list **env_l);
 int				cmp_env(char *str1, char *str2);
 char			*gt_env_var(char *str);
-int				rt_env(t_list *cmd_l, t_list *env_l, char **path_t);
 t_list			*checkout(char **arg, int *i, t_list *env_c, int *illegal);
+char			*check_u(char *str);
+char			*trim_name(char *str);
+void			set_it(char *arg, t_list **env_c);
+char			*execute_2(char **cmd);
+void			execute(char **cmd, t_list **env_c, char **path_t);
+int				unset_it(t_list *unset, t_list **env_c);
 #endif

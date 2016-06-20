@@ -6,41 +6,13 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/18 11:02:17 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/18 13:46:41 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/20 12:56:06 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*check_u(char *str)
-{
-	char	*cpy;
-
-	if (!str)
-		return (NULL);
-	if (!*str)
-		return (NULL);
-	if (!(cpy = ft_strdup(str)))
-		return (NULL);
-	return (cpy);
-}
-
-static char	*trim_name(char *str)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i] && str[i] != '=')
-		i++;
-	if (!(tmp = ft_strsub(str, 0, i)))
-		return (NULL);
-	return (tmp);
-}
-
-static void	add_all(t_list **first_l, t_list *env_c)
+static void		add_all(t_list **first_l, t_list *env_c)
 {
 	t_shell	content;
 	t_list	*tmp;
@@ -100,7 +72,7 @@ static t_list	*stack_u(char **arg, int *i, t_list **first_l, int *illegal)
 	return (*first_l);
 }
 
-t_list	*checkout(char **arg, int *i, t_list *env_c, int *illegal)
+t_list			*checkout(char **arg, int *i, t_list *env_c, int *illegal)
 {
 	t_list	*first_l;
 
