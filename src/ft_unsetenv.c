@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 13:41:09 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/20 13:31:43 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/30 18:58:30 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int			ft_unsetenv(t_list *cmd_l, t_list **env_l)
 		return (1);
 	if (u_env)
 		del_linkenv(u_env, env_l);
+	free(u_env);
 	return (1);
 }

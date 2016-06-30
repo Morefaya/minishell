@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 17:38:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/18 10:06:17 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/30 18:53:43 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	check_env_name(char *str, t_list *env_l)
 	if (!(u_env = gt_env_var(str)))
 		return (0);
 	if (!(tmp = ft_strjoin(u_env, "=")))
+	{
+		free(u_env);
 		return (0);
+	}
 	len = ft_strlen(tmp);
 	while (env_l)
 	{

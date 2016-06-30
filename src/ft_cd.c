@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/16 20:53:37 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/06/30 19:34:21 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,32 @@ int			ft_cd(t_list *lst, t_list **env_l)
 	char	*owd;
 	char	*awd;
 
+	str = NULL;
+	owd = NULL;
+	awd = NULL;
 	if (!(str = check_cd(lst, env_l)))
 		return (1);
 	if (!deal_arg(str))
+	{
+		free(str);
 		return (1);
+	}
 	if (!(owd = chdir_cd(str)))
+	{
+		free(str);
 		return (1);
+	}
 	if (!(awd = get_pwd()))
+	{
+		free (owd);
+		free(str);
 		return (1);
+	}
 	if ((cd_set(owd, awd, "setenv OLDPWD=", env_l))
 		|| (cd_set(owd, awd, "setenv PWD=", env_l)))
 	{
+		free(owd);
+		free(awd);
 		free(str);
 		return (1);
 	}
