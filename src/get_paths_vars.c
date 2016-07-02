@@ -35,5 +35,6 @@ char	**get_paths_vars(t_list *env_l)
 		free(tmp);
 		return (NULL);
 	}
+	free(tmp);
 	return (path);
 }

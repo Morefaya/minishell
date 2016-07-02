@@ -50,5 +50,6 @@ int			cd_set(char *owd, char *awd, char *cmd, t_list **env_l)
 	if (!(cmd_pwd = ft_lstnew(&content, sizeof(content))))
 		return (1);
 	ft_setenv(cmd_pwd, env_l);
+	ft_lstdelone(&cmd_pwd, (void(*)(void*, size_t))del_content);
 	return (0);
 }

@@ -33,34 +33,38 @@ static int	check_opt(char *str, int *opt)
 
 static char	*cd_arg(char *str, int *opt)
 {
-	char	**cd_split;
+	char		**cd_split;
 	int		i;
-	int		nb_arg;
+	char		*ret;
 
 	i = 1;
+	ret = NULL;
 	if (!(cd_split = ft_strsplit(str, ' ')))
 		return (NULL);
 	while (check_opt(cd_split[i], opt))
 		i++;
-	if ((nb_arg = tablen(cd_split + i)) == 2)
+	if (tablen(cd_split + i) == 2)
 	{
 		ft_putstr("cd: string not in pwd: ");
 		ft_putendl(cd_split[i]);
 		free_tab2d(cd_split);
 		return (NULL);
 	}
-	if (nb_arg > 2)
+	else if (tablen(cd_split + i) > 2)
 	{
 		ft_putendl("cd: too many arguments");
 		free_tab2d(cd_split);
 		return (NULL);
 	}
 	if (!cd_split[i])
-		return (ft_strdup("\0"));
-	return (cd_split[i]);
+		ret = ft_strdup("\0");
+	else
+		ret = ft_strdup(cd_split[i]);
+	free_tab2d(cd_split);	
+	return (ret);
 }
 
-static char	*deal_arg(char *str)
+static int	deal_arg(char *str)
 {
 	struct stat	f_stat;
 
@@ -68,17 +72,17 @@ static char	*deal_arg(char *str)
 	{
 		ft_putstr("cd: no such file or directory: ");
 		ft_putendl(str);
-		return (NULL);
+		return (0);
 	}
 	if (lstat(str, &f_stat) == -1)
-		return (NULL);
+		return (0);
 	if (access(str, X_OK))
 	{
 		ft_putstr("cd: permission denied");
 		ft_putendl(str);
-		return (NULL);
+		return (0);
 	}
-	return (str);
+	return (1);
 }
 
 char		*check_cd(t_list *lst, t_list **env_l)
@@ -114,8 +118,6 @@ int			ft_cd(t_list *lst, t_list **env_l)
 	char	*awd;
 
 	str = NULL;
-	owd = NULL;
-	awd = NULL;
 	if (!(str = check_cd(lst, env_l)))
 		return (1);
 	if (!deal_arg(str))
@@ -134,6 +136,7 @@ int			ft_cd(t_list *lst, t_list **env_l)
 		free(str);
 		return (1);
 	}
+
 	if ((cd_set(owd, awd, "setenv OLDPWD=", env_l))
 		|| (cd_set(owd, awd, "setenv PWD=", env_l)))
 	{

@@ -20,10 +20,7 @@ char	*get_pwd(void)
 	if (!(tmp = ft_strnew(BUFF_SIZE)))
 		return (NULL);
 	getcwd(tmp, BUFF_SIZE);
-	if (!(ret = ft_strdup(tmp)))
-	{
-		free(tmp);
-		return (NULL);
-	}
+	ret = ft_strdup(tmp);
+	free(tmp);
 	return (ret);
 }
