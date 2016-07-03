@@ -23,6 +23,12 @@ static int	built_2(t_list *lst, t_list **env_l)
 		ft_cd(lst, env_l);
 		return (1);
 	}
+	else if (ft_strnstr(((t_shell*)(lst->content))->str, "echo",
+		ft_strlen("echo")))
+	{
+		ft_echo(lst, env_l);
+		return (1);
+	}
 	return (0);
 }
 

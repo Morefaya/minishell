@@ -17,7 +17,7 @@
 # include <signal.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 1024
+
 
 typedef struct	s_shell
 {
@@ -68,4 +68,5 @@ void			set_it(char *arg, t_list **env_c);
 char			*execute_2(char **cmd);
 void			execute(char **cmd, t_list **env_c, char **path_t);
 int				unset_it(t_list *unset, t_list **env_c);
+int			ft_echo(t_list *lst, t_list **env_l);
 #endif
