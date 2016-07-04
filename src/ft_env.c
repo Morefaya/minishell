@@ -55,20 +55,29 @@ int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 	int		i;
 	int		illegal;
 
+	path_t++;
+
 	i = 1;
 	illegal = 0;
 	if (!(start_env(env_l, &env_c, &arg, cmd_l)))
 		return (1);
 	if (!(no_arg_env(arg, &env_c, i)))
+	{
+		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 		return (1);
+	}
 	unset = checkout(arg, &i, env_c, &illegal);
 	if (!(unset_it(unset, &env_c)))
+	{
+		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 		return (1);
+	}
 	get_set(arg, &i, &env_c);
 	if (arg[i])
 		execute(arg + i, &env_c, path_t);
 	else if (!illegal)
 		print_lst(env_c);
+	ft_lstdel(&unset, (void(*)(void*, size_t))del_content);
 	free_tab2d(arg);
 	ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
 	return (1);

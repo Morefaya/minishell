@@ -22,7 +22,7 @@ static char	**trim_split(char **cmd_tab)
 	while (cmd_tab[i])
 	{
 		tmp = cmd_tab[i];
-		if (!(cmd_tab[i] = ft_clean(cmd_tab[i])))
+		if (!(cmd_tab[i] = ft_strtrim(cmd_tab[i])))
 		{
 			free_tab2d(cmd_tab);
 			return (NULL);

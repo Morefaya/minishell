@@ -67,6 +67,7 @@ void	execute(char **cmd, t_list **env_c, char **path_t)
 	if (!(cmd_l = ft_lstnew(&content, sizeof(content))))
 		return ;
 	minishell(cmd_l, env_c, path_t);
+	ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);
 }
 
 int		unset_it(t_list *unset, t_list **env_c)
