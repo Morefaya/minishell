@@ -54,7 +54,7 @@ char	*execute_2(char **cmd)
 	return (str);
 }
 
-void	execute(char **cmd, t_list **env_c, char **path_t)
+void	execute(char **cmd, t_list **env_c)
 {
 	t_shell content;
 	t_list	*cmd_l;
@@ -66,7 +66,7 @@ void	execute(char **cmd, t_list **env_c, char **path_t)
 		return ;
 	if (!(cmd_l = ft_lstnew(&content, sizeof(content))))
 		return ;
-	minishell(cmd_l, env_c, path_t);
+	minishell(cmd_l, env_c);
 	ft_lstdel(&cmd_l, (void(*)(void*, size_t))del_content);
 }
 

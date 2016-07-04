@@ -47,7 +47,7 @@ static int	start_env(t_list *env_l, t_list **env_c, char ***arg, t_list *cmd_l)
 	return (1);
 }
 
-int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
+int			ft_env(t_list *cmd_l, t_list *env_l)
 {
 	t_list	*env_c;
 	char	**arg;
@@ -55,7 +55,6 @@ int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 	int		i;
 	int		illegal;
 
-	path_t++;
 
 	i = 1;
 	illegal = 0;
@@ -74,7 +73,7 @@ int			ft_env(t_list *cmd_l, t_list *env_l, char **path_t)
 	}
 	get_set(arg, &i, &env_c);
 	if (arg[i])
-		execute(arg + i, &env_c, path_t);
+		execute(arg + i, &env_c);
 	else if (!illegal)
 		print_lst(env_c);
 	ft_lstdel(&unset, (void(*)(void*, size_t))del_content);

@@ -32,7 +32,7 @@ static int	built_2(t_list *lst, t_list **env_l)
 	return (0);
 }
 
-int			builtins(t_list *lst, t_list **env_l, char **path_t)
+int			builtins(t_list *lst, t_list **env_l)
 {
 	if (ft_strnstr(((t_shell*)(lst->content))->str, "unsetenv",
 		ft_strlen("unsetenv")))
@@ -51,7 +51,7 @@ int			builtins(t_list *lst, t_list **env_l, char **path_t)
 	else if (ft_strnstr(((t_shell*)(lst->content))->str, "env",
 		ft_strlen("env")))
 	{
-		ft_env(lst, *env_l, path_t);
+		ft_env(lst, *env_l);
 		return (1);
 	}
 	else
