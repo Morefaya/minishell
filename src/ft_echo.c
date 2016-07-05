@@ -15,14 +15,14 @@ static void	put_echo(char *str)
 			cond++;
 		else if (*str)
 			ft_putchar(' ');
-		while (*str && !ft_strchr(" \t\"", (int)*str))
+		while (*str && !ft_strchr(" \t\"\'", (int)*str))
 			ft_putchar(*str++);
-		if (*str == '"')
+		if (ft_strchr("\"\'", (int)*str))
 		{
 			str++;
-			while (*str && *str != '"')
+			while (*str && !ft_strchr("\"\'", (int)*str))
 				ft_putchar(*str++);
-			str = (*str == '"') ? ++str : str;
+			str = (!ft_strchr("\"\'", (int)*str)) ? ++str : str;
 		}
 	}
 }
@@ -33,7 +33,7 @@ static int	count_quote(char *str)
 
 	ret = 0;
 	while (*str)
-		ret += (*str++ == '"') ? 1 : 0;
+		ret += (ft_strchr("\"\'", (int)*str++)) ? 1 : 0;
 	return (ret);
 }
 

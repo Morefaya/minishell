@@ -20,6 +20,8 @@ static int	check_opt(char *str, int *opt)
 	if (*str != '-')
 		return (0);
 	str++;
+	if (!*str)
+		return (0);
 	while (*str)
 	{
 		if (*str == 'P')
@@ -95,11 +97,39 @@ char		*check_cd(t_list *lst, t_list **env_l)
 	str = NULL;
 	if (!(str = cd_arg(((t_shell*)(lst->content))->str, &opt)))
 		return (NULL);
-	if (!(ft_strcmp(str, "\0") || !(ft_strcmp(str, "~"))))
+	if (!ft_strcmp(str, "\0") || !ft_strcmp(str, "~"))
 	{
 		if (!(home_var = get_var_env("HOME", *env_l)))
 		{
+			free(str);
 			ft_putendl("/usr/bin/cd: line 4: cd: HOME not set");
+			return (NULL);
+		}
+		else
+		{
+			free(str);
+			str = home_var;
+		}
+	}
+	else if (!ft_strcmp(str, "-"))
+	{
+		if (!(home_var = get_var_env("OLDPWD", *env_l)))
+		{
+			ft_putendl("/usr/bin/cd: line 4: cd: OLDPWD not set");
+			return (NULL);
+		}
+		else
+		{
+			free(str);
+			str = home_var;
+		}
+
+	}
+	else if (*str == '$')
+	{	
+		if (!(home_var = get_var_env(str + 1, *env_l)))
+		{
+			ft_putendl("/usr/bin/cd: line 4: cd: not set");
 			return (NULL);
 		}
 		else
