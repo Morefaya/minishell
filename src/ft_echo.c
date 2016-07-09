@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 16:57:02 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/09 17:57:17 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/07/09 18:51:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	put_echo(char *str)
 {
-	int	cond;
+	int		cond;
+	char	a;
 
 	cond = 0;
 	if (!str)
@@ -31,16 +32,14 @@ static void	put_echo(char *str)
 			ft_putchar(*str++);
 		if (ft_strchr("\"\'", (int)*str))
 		{
-			if (*str == '\'')
-				while (*str && *str != '\'')
-					ft_putchar(*str++);
-			else if (*str == '\"')
-				while (*str && *str != '\"')
-					ft_putchar(*str++);
+			a = *str;
 			str++;
-			/*while (*str && !ft_strchr("\"\'", (int)*str))
-				ft_putchar(*str++);
-			str = (!ft_strchr("\"\'", (int)*str)) ? ++str : str;*/
+			while (*str)
+			{
+				if (*str != a)
+					ft_putchar(*str);
+				str++;
+			}
 		}
 	}
 }
