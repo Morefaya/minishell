@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/09 17:40:05 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/07/09 23:02:24 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,6 @@ char			*execute_2(char **cmd);
 void			execute(char **cmd, t_list **env_c);
 int				unset_it(t_list *unset, t_list **env_c);
 int				ft_echo(t_list *lst, t_list **env_l);
+void			put_echo(char *str);
+void			insert_var(char **str, t_list *env_l);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 15:15:24 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/04 16:37:29 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/07/09 23:13:52 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	son_process(char *cmd, t_list *env_l)
 	char	*cmd_path;
 	char	**arg;
 	char	**env_t;
-	int	i;
+	int		i;
 	char	**path_t;
 
 	i = 0;
@@ -59,7 +59,7 @@ static void	son_process(char *cmd, t_list *env_l)
 		while (path_t[i])
 		{
 			if (!(cmd_path = make_cmd_path(path_t[i], cmd)))
-			{	
+			{
 				free_tab2d(arg);
 				free_tab2d(env_t);
 				return ;
