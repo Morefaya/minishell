@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/20 14:09:01 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/20 14:30:05 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/07/09 16:51:56 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ static int	start_env(t_list *env_l, t_list **env_c, char ***arg, t_list *cmd_l)
 	return (1);
 }
 
+static int	help_env(t_list **lst)
+{
+	ft_lstdel(lst, (void(*)(void*, size_t))del_content);
+	return (1);
+}
+
 int			ft_env(t_list *cmd_l, t_list *env_l)
 {
 	t_list	*env_c;
@@ -55,22 +61,15 @@ int			ft_env(t_list *cmd_l, t_list *env_l)
 	int		i;
 	int		illegal;
 
-
 	i = 1;
 	illegal = 0;
 	if (!(start_env(env_l, &env_c, &arg, cmd_l)))
 		return (1);
 	if (!(no_arg_env(arg, &env_c, i)))
-	{
-		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
-		return (1);
-	}
+		return (help_env(&env_c));
 	unset = checkout(arg, &i, env_c, &illegal);
 	if (!(unset_it(unset, &env_c)))
-	{
-		ft_lstdel(&env_c, (void(*)(void*, size_t))del_content);
-		return (1);
-	}
+		return (help_env(&env_c));
 	get_set(arg, &i, &env_c);
 	if (arg[i])
 		execute(arg + i, &env_c);

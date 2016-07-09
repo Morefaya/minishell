@@ -6,12 +6,19 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/04 16:44:51 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/07/09 17:40:05 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define UNSET "unsetenv"
+# define SET "setenv"
+# define CD "cd"
+# define ECHO "echo"
+# define ENV "env"
+# define EXIT "exit"
 
 # include "libft.h"
 # include <signal.h>

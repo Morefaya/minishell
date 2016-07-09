@@ -1,11 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/07/09 16:57:02 by jcazako           #+#    #+#             */
+/*   Updated: 2016/07/09 17:57:17 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct	s_ins
-{
-	char	*str;
-	int	pos;
-	int	len;
-}		t_ins;
+#include "minishell.h"
 
 static void	put_echo(char *str)
 {
@@ -26,10 +31,16 @@ static void	put_echo(char *str)
 			ft_putchar(*str++);
 		if (ft_strchr("\"\'", (int)*str))
 		{
+			if (*str == '\'')
+				while (*str && *str != '\'')
+					ft_putchar(*str++);
+			else if (*str == '\"')
+				while (*str && *str != '\"')
+					ft_putchar(*str++);
 			str++;
-			while (*str && !ft_strchr("\"\'", (int)*str))
+			/*while (*str && !ft_strchr("\"\'", (int)*str))
 				ft_putchar(*str++);
-			str = (!ft_strchr("\"\'", (int)*str)) ? ++str : str;
+			str = (!ft_strchr("\"\'", (int)*str)) ? ++str : str;*/
 		}
 	}
 }
@@ -60,7 +71,7 @@ static void	join_echo(char **str)
 
 static char	*get_str_ins(char *str)
 {
-	int	i;
+	int		i;
 	char	*link_1;
 	char	*link_2;
 	char 	*new;
@@ -108,7 +119,7 @@ static void	insert_var(char **str, t_list *env_l)
 {
 	char	*tmp_1;
 	char	*tmp_2;
-	int	len;
+	int		len;
 	char	*var;
 	char	*env_v;
 	char	*str_ins;
