@@ -25,7 +25,8 @@ char	*get_var_env(char *env_var, t_list *env_l)
 	len_var = ft_strlen(env_var);
 	while (env_l)
 	{
-		if (ft_strnstr(((t_shell*)(env_l->content))->str, env_var, len_var))
+		if (ft_strnstr(((t_shell*)(env_l->content))->str, env_var, len_var)
+			&& ((t_shell*)(env_l->content))->str[len_var] == '=')
 		{
 			if (!(var_value = ft_strsub(((t_shell*)(env_l->content))->str,
 				len_var + 1, len_env - len_var)))

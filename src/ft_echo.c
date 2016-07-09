@@ -87,6 +87,23 @@ static char	*get_str_ins(char *str)
 	return (new);
 }
 
+static char	*next_env_var(char *str, int nb)
+{
+	int	i;
+
+	i = 0;
+	while (*str && *str != '$' && i < nb)
+	{
+		if (*str == '$')
+			i++;
+		str++;
+	}
+	if (!*str)
+		return (NULL);
+	else
+		return (str);
+}
+
 static void	insert_var(char **str, t_list *env_l)
 {
 	char	*tmp_1;
@@ -95,19 +112,22 @@ static void	insert_var(char **str, t_list *env_l)
 	char	*var;
 	char	*env_v;
 	char	*str_ins;
+	int	nb_env;
 
-	len = 0;
 	tmp_1 = *str;
 	tmp_2 = NULL;
-	while ((tmp_1 = ft_strchr(*str, (int)'$')))
+	nb_env = 1;
+	while ((tmp_1 = next_env_var(*str, nb_env++)))
 	{
+		len = 0;
 		tmp_1++;
 		while (!ft_strchr(" \t\"\'", (int)tmp_1[len]))
 			len++;
 		if (!(env_v = ft_strsub(tmp_1, 0, len)))
 			return ;
 		if (!(var = get_var_env(env_v, env_l)))
-			return ;
+			if (!(var = ft_strdup("")))
+				return ;
 		if (!(str_ins = get_str_ins(*str)))
 			return ;
 		tmp_2 = *str;
