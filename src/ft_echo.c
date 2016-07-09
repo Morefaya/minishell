@@ -1,5 +1,12 @@
 #include "minishell.h"
 
+typedef struct	s_ins
+{
+	char	*str;
+	int	pos;
+	int	len;
+}		t_ins;
+
 static void	put_echo(char *str)
 {
 	int	cond;
@@ -51,22 +58,91 @@ static void	join_echo(char **str)
 	free(line);
 }
 
+static char	*get_str_ins(char *str)
+{
+	int	i;
+	char	*link_1;
+	char	*link_2;
+	char 	*new;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (!(link_1 = ft_strsub(str, 0, i)))
+		return (NULL);
+	str += i;
+	while (*str && !ft_strchr(" \t\n", *str))
+		str++;
+	if (!*str)
+		return (link_1);
+	i = 0;
+	while (str[i])
+		i++;
+	if (!(link_2 = ft_strsub(str, 0, i)))
+		return (NULL);
+	if (!(new = ft_strjoin(link_1, link_2)))
+		return (NULL);
+	free(link_1);
+	free(link_2);
+	return (new);
+}
+
+static void	insert_var(char **str, t_list *env_l)
+{
+	char	*tmp_1;
+	char	*tmp_2;
+	int	len;
+	char	*var;
+	char	*env_v;
+	char	*str_ins;
+
+	len = 0;
+	tmp_1 = *str;
+	tmp_2 = NULL;
+	while ((tmp_1 = ft_strchr(*str, (int)'$')))
+	{
+		tmp_1++;
+		while (!ft_strchr(" \t\"\'", (int)tmp_1[len]))
+			len++;
+		if (!(env_v = ft_strsub(tmp_1, 0, len)))
+			return ;
+		if (!(var = get_var_env(env_v, env_l)))
+			return ;
+		if (!(str_ins = get_str_ins(*str)))
+			return ;
+		tmp_2 = *str;
+		*str = ft_strinsert(str_ins, var, tmp_1 - *str - 1);
+		free(tmp_2);
+		free(env_v);
+		free(var);
+		free(str_ins);
+	}
+}
+
 int		ft_echo(t_list *lst, t_list **env_l)
 {
 	char	*str;
+	char	*tmp;
 	int	len;
 
 	len = ft_strlen(((t_shell*)(lst->content))->str);
-	if (!(str = ft_strsub(((t_shell*)(lst->content))->str, 4, len - 4)))
+	if (!(tmp = ft_strsub(((t_shell*)(lst->content))->str, 4, len - 4)))
 		return (1);
+	if (!(str = ft_strtrim(tmp)))
+	{
+		free(tmp);
+		return (1);
+	}
+	free(tmp);
 	while (count_quote(str) % 2)
 	{
 		ft_putstr("dquote>");
 		join_echo(&str);
 	}
+	if (ft_strchr(str, (int)'$'))
+		insert_var(&str, *env_l);
 	put_echo(str);
 	ft_putchar('\n');
 	free(str);
-	env_l++;
 	return (1);
 }

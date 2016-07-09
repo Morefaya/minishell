@@ -106,4 +106,5 @@ int					ft_wordnb(char *str);
 int					ft_strlen_str(char *str);
 char				*ft_clean(char *str);
 int					ft_lstcount(t_list *lst);
+char				*ft_strinsert(char *str, char *insert, size_t pos);
 #endif
