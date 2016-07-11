@@ -20,12 +20,18 @@ static void	help_echo(char **str)
 	{
 		a = **str;
 		(*str)++;
-		while (**str)
+		while (**str && **str != a)
 		{
-			if (**str != a)
-				ft_putchar(**str);
+			ft_putchar(**str);
+			//if (**str != a)
+			//	ft_putchar(**str);
 			(*str)++;
 		}
+		if (**str)
+			(*str)++;
+		//ft_putchar('\n');
+		//ft_putchar(a);
+		//ft_putchar('\n');
 	}
 }
 
@@ -34,6 +40,7 @@ void		put_echo(char *str)
 	int		cond;
 
 	cond = 0;
+	//ft_putendl(str);
 	if (!str)
 		return ;
 	while (*str)

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	free_son(char **arg, char **env_t)
+/*static void	free_son(char **arg, char **env_t)
 {
 	free_tab2d(arg);
 	free_tab2d(env_t);
@@ -73,7 +73,7 @@ static void	son_process(char *cmd, t_list *env_l)
 	exe_file(cmd, arg, env_t, ret);
 	ft_putchar('\n');
 	exit(ret);
-}
+}*/
 
 void		exe_cmd(char *cmd, t_list *env_l)
 {
