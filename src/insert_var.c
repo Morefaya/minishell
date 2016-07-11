@@ -34,24 +34,8 @@ static char	*get_str_ins(char *str, char *env_v)
 		return (NULL);
 	free(link_1);
 	free(link_2);
-	//ft_putendl(new);
 	return (new);
 }
-
-/*static int	count_nb_s(char *str)
-{
-	int	i;
-	int	nb_s;
-
-	i = 0;
-	nb_s = 0;
-	while (str[i])
-	{
-		if (str[i++] == '$')
-			nb_s++;
-	}
-	return (nb_s);
-}*/
 
 static char	*next_env_var(char *str, int nb)
 {
@@ -75,7 +59,7 @@ static char	*next_env_var(char *str, int nb)
 		return (str);
 }
 
-static int	check_quotes(char *str, char *tmp_1)
+/*static int	check_quotes(char *str, char *tmp_1)
 {
 	int		len;
 	int		dist;
@@ -98,17 +82,11 @@ static int	check_quotes(char *str, char *tmp_1)
 			nb_r++;
 		tmp_1++;
 	}
-	/*ft_putnbr(nb_l);
-	ft_putchar('\t');
-	ft_putnbr(nb_r);
-	ft_putchar('\n');
-	ft_putendl(str);
-	ft_putendl(tmp_1);*/
 	if (nb_l % 2 && nb_r % 2)
 		return (0);
 	else
 		return (1);
-}
+}*/
 
 static void	deal_insert(char *env_v, char **str, t_list *env_l)
 {
@@ -116,18 +94,11 @@ static void	deal_insert(char *env_v, char **str, t_list *env_l)
 	char	*str_ins;
 	char	*tmp;
 
-	//ft_putendl(tmp_1);
-	/*while (!ft_strchr(" \t\"\'", (int)tmp_1[len]))
-		len++;
-	if (!(env_v = ft_strsub(tmp_1, 0, len)))
-		return ;*/
 	if (!(var = get_var_env(env_v + 1, env_l)))
 		if (!(var = ft_strdup("")))
 			return ;
 	if (!(str_ins = get_str_ins(*str, env_v)))
 		return ;
-	//ft_putendl(str_ins);
-	//tmp = *str;
 	tmp = ft_strstr(*str, env_v);
 	free(*str);
 	*str = ft_strinsert(str_ins, var, tmp - *str);
@@ -146,7 +117,6 @@ static char	*get_var(char *tmp_1)
 		len++;
 	if (!(env_v = ft_strsub(tmp_1, 0, len)))
 		return (NULL);
-	//ft_putendl(env_v);
 	return (env_v);
 }
 
@@ -161,13 +131,9 @@ void		insert_var(char **str, t_list *env_l)
 	env_v = NULL;
 	while ((tmp_1 = next_env_var(*str, nb_env++)))
 	{
-		//ft_putendl(tmp_1);
 		if (check_quotes(*str, tmp_1))
 		{
-			//tmp_1++;
-			//ft_putendl(*str);
 			env_v = get_var(tmp_1);
-			//ft_putendl(var);
 			deal_insert(env_v, str, env_l);
 			free(env_v);
 			nb_env--;

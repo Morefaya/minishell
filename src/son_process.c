@@ -75,12 +75,7 @@ void	son_process(char *cmd, t_list *env_l)
 		free_tab2d(env_t);
 		return ;
 	}
-	if (!(path_t = get_paths_vars(env_l)))
-	{
-		free_tab2d(env_t);
-		free_tab2d(arg);
-		return ;
-	}
+	path_t = get_paths_vars(env_l);
 	help_son(arg, path_t, env_t, cmd);
 	exe_file(cmd, arg, env_t);
 	ft_putchar('\n');

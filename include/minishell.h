@@ -77,4 +77,7 @@ int				ft_echo(t_list *lst, t_list **env_l);
 void			put_echo(char *str);
 void			insert_var(char **str, t_list *env_l);
 void			son_process(char *cmd, t_list *env_l);
+int			check_quotes(char *str, char *tmp_1);
+char			*cd_arg(char *str, int *opt);
+char			*check_cd(t_list *lst, t_list **env_l);
 #endif
