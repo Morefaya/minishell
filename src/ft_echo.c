@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 16:57:02 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/09 23:03:01 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 12:37:42 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	join_echo(char **str)
 	free(line);
 }
 
-int		ft_echo(t_list *lst, t_list **env_l)
+int			ft_echo(t_list *lst, t_list **env_l)
 {
 	char	*str;
 	char	*tmp;

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_cd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/08/03 12:32:54 by jcazako           #+#    #+#             */
+/*   Updated: 2016/08/03 12:32:57 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/stat.h>
@@ -56,7 +67,7 @@ static int	deal_var(char **str, t_list *env_l)
 char		*check_cd(t_list *lst, t_list **env_l)
 {
 	char	*str;
-	int	opt;
+	int		opt;
 
 	opt = 0;
 	str = NULL;

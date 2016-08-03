@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 17:38:27 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/30 18:53:43 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 12:40:23 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	check_env_name(char *str, t_list *env_l)
 {
 	int		ret;
 	char	*u_env;
-	int		len;
 	char	*tmp;
 
 	ret = 0;
@@ -40,10 +39,9 @@ static int	check_env_name(char *str, t_list *env_l)
 		free(u_env);
 		return (0);
 	}
-	len = ft_strlen(tmp);
 	while (env_l)
 	{
-		if (!ft_strncmp(tmp, ((t_shell*)(env_l->content))->str, len))
+		if (!ft_strncmp(tmp, ((t_shell*)(env_l->content))->str, ft_strlen(tmp)))
 		{
 			ret = 1;
 			break ;

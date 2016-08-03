@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:51:03 by jcazako           #+#    #+#             */
-/*   Updated: 2016/06/30 19:34:21 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 12:33:41 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	free_cd(char *owd, char *awd, char *str)
 {
 	free(owd);
-	free(awd);	
+	free(awd);
 	free(str);
 }
 
@@ -61,7 +61,7 @@ int			ft_cd(t_list *lst, t_list **env_l)
 		return (1);
 	if (!(awd = get_pwd()))
 	{
-		free (owd);
+		free(owd);
 		free(str);
 		return (1);
 	}

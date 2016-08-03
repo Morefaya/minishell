@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_arg.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/08/03 12:28:13 by jcazako           #+#    #+#             */
+/*   Updated: 2016/08/03 12:29:40 by jcazako          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 #include <sys/stat.h>
@@ -40,9 +50,9 @@ static char	*too_arg(char **cd_split)
 
 char		*cd_arg(char *str, int *opt)
 {
-	char		**cd_split;
+	char	**cd_split;
 	int		i;
-	char		*ret;
+	char	*ret;
 
 	i = 1;
 	ret = NULL;
@@ -58,6 +68,6 @@ char		*cd_arg(char *str, int *opt)
 		ret = ft_strdup("\0");
 	else
 		ret = ft_strdup(cd_split[i]);
-	free_tab2d(cd_split);	
+	free_tab2d(cd_split);
 	return (ret);
 }

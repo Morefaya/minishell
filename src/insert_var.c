@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/09 22:52:18 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/09 22:56:56 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 12:35:46 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,6 @@ static char	*next_env_var(char *str, int nb)
 		return (str);
 }
 
-/*static int	check_quotes(char *str, char *tmp_1)
-{
-	int		len;
-	int		dist;
-	int		nb_l;
-	int		nb_r;
-
-	nb_l = 0;
-	nb_r = 0;
-	len = ft_strlen(str);
-	dist = tmp_1 - str;
-	while (dist >= 0)
-	{
-		if (str[dist] == '\'')
-			nb_l++;
-		dist--;
-	}
-	while (*tmp_1)
-	{
-		if (*tmp_1 == '\'')
-			nb_r++;
-		tmp_1++;
-	}
-	if (nb_l % 2 && nb_r % 2)
-		return (0);
-	else
-		return (1);
-}*/
-
 static void	deal_insert(char *env_v, char **str, t_list *env_l)
 {
 	char	*var;
@@ -108,7 +79,7 @@ static void	deal_insert(char *env_v, char **str, t_list *env_l)
 
 static char	*get_var(char *tmp_1)
 {
-	int	len;
+	int		len;
 	char	*env_v;
 
 	len = 0;
@@ -123,7 +94,7 @@ static char	*get_var(char *tmp_1)
 void		insert_var(char **str, t_list *env_l)
 {
 	char	*tmp_1;
-	int	nb_env;
+	int		nb_env;
 	char	*env_v;
 
 	tmp_1 = *str;

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 16:31:43 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/09 23:02:24 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 12:31:28 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				ft_echo(t_list *lst, t_list **env_l);
 void			put_echo(char *str);
 void			insert_var(char **str, t_list *env_l);
 void			son_process(char *cmd, t_list *env_l);
-int			check_quotes(char *str, char *tmp_1);
+int				check_quotes(char *str, char *tmp_1);
 char			*cd_arg(char *str, int *opt);
 char			*check_cd(t_list *lst, t_list **env_l);
 #endif

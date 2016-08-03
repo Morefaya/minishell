@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/30 20:38:42 by jcazako           #+#    #+#             */
-/*   Updated: 2016/07/04 16:45:27 by jcazako          ###   ########.fr       */
+/*   Updated: 2016/08/03 15:01:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	sig_handler(int sig)
 	}
 }
 
-int	main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
-	t_list	*env_l;
-	t_list	*cmd_l;
-	struct termios term;
+	t_list			*env_l;
+	t_list			*cmd_l;
+	struct termios	term;
 
 	(void)ac;
 	(void)av;
