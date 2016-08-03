@@ -67,7 +67,6 @@ void	son_process(char *cmd, t_list *env_l)
 	char	**env_t;
 	char	**path_t;
 
-	signal(SIGINT, SIG_DFL);
 	if (!(env_t = tab2d_lst(env_l)))
 		return ;
 	if (!(arg = ft_strstr_split(cmd, " \t\n")))

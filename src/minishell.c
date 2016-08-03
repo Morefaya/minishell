@@ -20,10 +20,7 @@ void		exe_cmd(char *cmd, t_list *env_l)
 	if (!(pid = fork()))
 		son_process(cmd, env_l);
 	else if (pid > 0)
-	{
-		signal(SIGINT, SIG_IGN);
 		wait(&i);
-	}
 }
 
 int			minishell(t_list *cmd_l, t_list **env_l)
